@@ -2,10 +2,11 @@
   "name": "Mermaid Diagramming",
   "type": "skill",
   "description": "Create, edit, and layout Mermaid diagrams (.mmd files) correctly in VS Code. Covers node shapes, edge types, line breaks in labels, subgraph layout rules, and VS Code preview commands.",
+  "os": ["any"],
   "version": "1.0.0",
   "author": "EnhanceClaude",
-  "platforms": ["Claude Code"],
   "tags": ["diagramming", "mermaid", "flowchart", "sequence-diagram", "visualization"],
+  "customInstructions": "Requires VS Code MermaidChart extension for preview.",
   "readme": "readme.md",
   "featured": false
 }

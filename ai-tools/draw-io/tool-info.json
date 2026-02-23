@@ -2,10 +2,11 @@
   "name": "Draw.io Diagram Generator",
   "type": "skill",
   "description": "Generate and edit draw.io diagrams (.drawio XML). Use for flowcharts, architecture diagrams, swimlane diagrams in .drawio format.",
+  "os": ["any"],
   "version": "1.0.0",
   "author": "EnhanceClaude",
-  "platforms": ["Claude Code"],
-  "tags": ["diagramming", "draw.io", "flowchart", "architecture", "XML"],
+  "tags": ["diagramming", "draw.io", "flowchart", "architecture", "xml"],
+  "customInstructions": "Requires VS Code draw.io extension for preview.",
   "readme": "readme.md",
   "featured": false
 }

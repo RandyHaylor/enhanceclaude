@@ -2,10 +2,11 @@
   "name": "PDF to Text",
   "type": "skill",
   "description": "Convert PDF files to clean text. Handles both embedded-text PDFs and scanned/image PDFs via OCR.",
+  "os": ["linux", "macos"],
   "version": "1.0.0",
   "author": "EnhanceClaude",
-  "platforms": ["Claude Code"],
   "tags": ["pdf", "text-extraction", "ocr", "document-processing", "conversion"],
+  "customInstructions": "Requires pdftotext (poppler-utils), and optionally tesseract-ocr and ocrmypdf for scanned PDFs. Install: sudo apt install poppler-utils tesseract-ocr (Linux) or brew install poppler tesseract (macOS).",
   "readme": "readme.md",
   "featured": false
 }

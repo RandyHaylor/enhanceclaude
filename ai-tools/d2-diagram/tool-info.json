@@ -2,10 +2,11 @@
   "name": "D2 Diagram Generator",
   "type": "skill",
   "description": "Generate D2 diagram files (.d2) for technical reference — flowcharts, architecture diagrams, sequence diagrams, state machines, database schemas, and class diagrams.",
+  "os": ["any"],
   "version": "1.0.0",
   "author": "EnhanceClaude",
-  "platforms": ["Claude Code"],
   "tags": ["diagramming", "d2", "flowchart", "architecture", "visualization"],
+  "customInstructions": "Requires D2 CLI installed (https://d2lang.com) and VS Code D2 extension for preview.",
   "readme": "readme.md",
   "featured": false
 }

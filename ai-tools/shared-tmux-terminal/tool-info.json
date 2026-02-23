@@ -1,11 +1,12 @@
 {
   "name": "Shared Tmux Terminal",
   "type": "skill",
-  "description": "Open a shared tmux terminal window that both Claude and the user can see and control simultaneously. Claude sends commands and reads output autonomously. The user can type directly, including for sudo passwords.",
+  "description": "Open a shared tmux terminal window that both Claude and the user can see and control simultaneously. Claude sends commands and reads output autonomously.",
+  "os": ["linux", "macos"],
   "version": "1.0.0",
   "author": "EnhanceClaude",
-  "platforms": ["Claude Code"],
   "tags": ["terminal", "tmux", "shared-terminal", "sudo", "collaboration"],
+  "customInstructions": "Requires tmux installed. Linux also needs a terminal emulator (gnome-terminal, konsole, etc.) and optionally xdotool for window title control.",
   "readme": "readme.md",
   "featured": false
 }

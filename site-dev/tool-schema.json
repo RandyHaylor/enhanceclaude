@@ -1,22 +1,30 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "EnhanceClaude Tool Module",
-  "description": "Schema for web-view.json — defines how a tool, skill, or agent appears on enhanceclaude.com",
+  "description": "Schema for tool-info.json — defines how a skill or agent appears on enhanceclaude.com",
   "type": "object",
-  "required": ["name", "type", "description"],
+  "required": ["name", "type", "description", "os"],
   "properties": {
     "name": {
       "type": "string",
-      "description": "Display name of the tool, skill, or agent"
+      "description": "Display name of the skill or agent"
     },
     "type": {
       "type": "string",
-      "enum": ["tool", "skill", "agent"],
-      "description": "Module type"
+      "enum": ["skill", "agent"],
+      "description": "Whether this is a skill (instructions/knowledge) or an agent (autonomous behavior)"
     },
     "description": {
       "type": "string",
       "description": "Short summary shown in the module card"
+    },
+    "os": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["linux", "macos", "windows", "any"]
+      },
+      "description": "Compatible operating systems. Use 'any' if OS-agnostic. Enables automatic install instruction links."
     },
     "version": {
       "type": "string",
@@ -26,28 +34,18 @@
       "type": "string",
       "description": "Author or contributor name"
     },
-    "platforms": {
-      "type": "array",
-      "items": { "type": "string" },
-      "description": "Compatible platforms (e.g. Claude Code, ChatGPT, Gemini)"
-    },
     "tags": {
       "type": "array",
       "items": { "type": "string" },
       "description": "Searchable tags for categorization"
     },
+    "customInstructions": {
+      "type": "string",
+      "description": "Special installation or usage instructions specific to this tool, if generic install instructions are not sufficient"
+    },
     "readme": {
       "type": "string",
-      "description": "Filename of the readme to render as module content (e.g. README.md)"
-    },
-    "repo": {
-      "type": "string",
-      "format": "uri",
-      "description": "Source repository URL (not displayed to users, used for pulling content)"
-    },
-    "icon": {
-      "type": "string",
-      "description": "Filename of an icon image in the subfolder"
+      "description": "Filename of the readme to render as module content (e.g. readme.md)"
     },
     "featured": {
       "type": "boolean",

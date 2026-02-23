@@ -2,9 +2,9 @@
   "name": "SOLID Vue Development",
   "type": "skill",
   "description": "Core principles for writing clean, disciplined Vue 3 apps. Covers state vs behavior separation, component boundaries, manager pattern, reactive chains, and naming conventions.",
+  "os": ["any"],
   "version": "1.0.0",
   "author": "EnhanceClaude",
-  "platforms": ["Claude Code"],
   "tags": ["vue", "vue3", "frontend", "solid-principles", "component-design"],
   "readme": "readme.md",
   "featured": false

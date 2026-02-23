@@ -1,0 +1,457 @@
+[
+  {
+    "platform": "antigravity",
+    "installations": [
+      {
+        "type": "rule",
+        "scope": "global",
+        "path": "~/.gemini/GEMINI.md",
+        "windowsPath": "C:\\Users\\<username>\\.gemini\\GEMINI.md",
+        "files": [
+          "GEMINI.md"
+        ],
+        "example": "# Global Rules\n\n* Always use TypeScript instead of JavaScript.\n* Follow PEP 8 style guide for Python code.\n* Include error handling in all async functions."
+      },
+      {
+        "type": "rule",
+        "scope": "project",
+        "path": "<project-root>/.agent/rules/",
+        "files": [
+          "<rule-name>.md"
+        ],
+        "example": "* Use PostgreSQL for the database layer.\n* All API endpoints must return JSON.\n* Follow REST naming conventions for routes."
+      },
+      {
+        "type": "workflow",
+        "scope": "global",
+        "path": "~/.gemini/antigravity/global_workflows/",
+        "windowsPath": "C:\\Users\\<username>\\.gemini\\antigravity\\global_workflows\\",
+        "files": [
+          "<workflow-name>.md"
+        ],
+        "example": "* Review all staged changes for bugs and code smells.\n* Check for security vulnerabilities.\n* Suggest improvements in priority order."
+      },
+      {
+        "type": "workflow",
+        "scope": "project",
+        "path": "<project-root>/.agent/workflows/",
+        "files": [
+          "<workflow-name>.md"
+        ],
+        "example": "* Generate unit tests for each file and method.\n* Use pytest as the testing framework.\n* Run the tests and report results."
+      },
+      {
+        "type": "skill",
+        "scope": "global",
+        "path": "~/.gemini/antigravity/skills/<skill-name>/",
+        "windowsPath": "C:\\Users\\<username>\\.gemini\\antigravity\\skills\\<skill-name>\\",
+        "files": [
+          "SKILL.md",
+          "scripts/",
+          "references/",
+          "examples/"
+        ],
+        "example": "---\nname: my-skill\ndescription: >\n  Use when the user asks about [scenario].\n---\n\n# My Skill\n\n## Instructions\n1. Step one\n2. Step two"
+      },
+      {
+        "type": "skill",
+        "scope": "project",
+        "path": "<project-root>/.agent/skills/<skill-name>/",
+        "files": [
+          "SKILL.md",
+          "scripts/",
+          "references/",
+          "examples/"
+        ],
+        "example": "---\nname: my-skill\ndescription: >\n  Use when the user asks about [scenario].\n---\n\n# My Skill\n\n## Instructions\n1. Step one\n2. Step two"
+      }
+    ]
+  },
+  {
+    "platform": "claude-code",
+    "installations": [
+      {
+        "type": "agent",
+        "scope": "project",
+        "path": "<project-root>/.claude/agents/<name>.md",
+        "files": [
+          "<name>.md"
+        ],
+        "example": "---\nname: code-reviewer\ndescription: Reviews code for quality and best practices.\nmodel: inherit\n---\nYou are a senior code reviewer."
+      },
+      {
+        "type": "agent",
+        "scope": "global",
+        "path": "~/.claude/agents/<name>.md",
+        "windowsPath": "C:\\Users\\<username>\\.claude\\agents\\<name>.md",
+        "files": [
+          "<name>.md"
+        ],
+        "example": "---\nname: debugger\ndescription: Debugs code issues across all projects.\nmodel: inherit\n---\nYou are a debugging specialist."
+      },
+      {
+        "type": "skill",
+        "scope": "project",
+        "path": "<project-root>/.claude/skills/<skill-name>/SKILL.md",
+        "files": [
+          "SKILL.md"
+        ],
+        "example": "---\nname: explain-code\ndescription: Explains code with diagrams and analogies.\n---\nWhen explaining code, start with an analogy,\nthen draw a diagram, then walk through step-by-step."
+      },
+      {
+        "type": "skill",
+        "scope": "global",
+        "path": "~/.claude/skills/<skill-name>/SKILL.md",
+        "windowsPath": "C:\\Users\\<username>\\.claude\\skills\\<skill-name>\\SKILL.md",
+        "files": [
+          "SKILL.md"
+        ],
+        "example": "---\nname: my-skill\ndescription: Does something useful across all projects.\n---\nInstructions for Claude go here."
+      },
+      {
+        "type": "command",
+        "scope": "project",
+        "path": "<project-root>/.claude/commands/<name>.md",
+        "files": [
+          "<name>.md"
+        ],
+        "example": "---\nname: review\ndescription: Reviews recent changes.\n---\nReview the latest git diff for issues."
+      },
+      {
+        "type": "command",
+        "scope": "global",
+        "path": "~/.claude/commands/<name>.md",
+        "windowsPath": "C:\\Users\\<username>\\.claude\\commands\\<name>.md",
+        "files": [
+          "<name>.md"
+        ],
+        "example": "---\nname: deploy\ndescription: Deploys the current project.\n---\nRun the deployment pipeline."
+      }
+    ]
+  },
+  {
+    "platform": "OpenAI Codex CLI",
+    "installations": [
+      {
+        "type": "rule",
+        "scope": "global",
+        "path": "~/.codex/AGENTS.md",
+        "files": [
+          "AGENTS.md"
+        ],
+        "example": "# Global Instructions\n\n## Code Style\n- Use 2-space indentation.\n- Write conventional commits."
+      },
+      {
+        "type": "rule",
+        "scope": "project",
+        "path": "<project-root>/AGENTS.md",
+        "files": [
+          "AGENTS.md"
+        ],
+        "example": "# Project Instructions\n\n## Stack\nNext.js 14 with TypeScript and Prisma.\n\n## Conventions\n- Components in src/components/."
+      },
+      {
+        "type": "rule",
+        "scope": "project",
+        "path": "<project-root>/AGENTS.override.md",
+        "files": [
+          "AGENTS.override.md"
+        ],
+        "example": "# Temporary Override\n\n## Current Sprint Focus\n- Prioritize performance optimization."
+      },
+      {
+        "type": "rule",
+        "scope": "project",
+        "path": "<project-root>/<subdir>/AGENTS.md",
+        "files": [
+          "AGENTS.md"
+        ],
+        "example": "# Backend Instructions\n\n## API Conventions\n- All endpoints return JSON.\n- Use middleware for auth."
+      },
+      {
+        "type": "skill",
+        "scope": "global",
+        "path": "~/.agents/skills/<skill-name>/",
+        "files": [
+          "SKILL.md"
+        ],
+        "example": "---\nname: code-reviewer\ndescription: Reviews code for best practices.\n---\n\n# Code Reviewer\n\n## Steps\n1. Check for security issues.\n2. Verify error handling."
+      },
+      {
+        "type": "skill",
+        "scope": "project",
+        "path": ".agents/skills/<skill-name>/",
+        "files": [
+          "SKILL.md"
+        ],
+        "example": "---\nname: deploy-checker\ndescription: Validates deployment readiness.\n---\n\n# Deploy Checker\n\n## Steps\n1. Run tests: npm test\n2. Verify build: npm run build"
+      },
+      {
+        "type": "mcp",
+        "scope": "global",
+        "path": "~/.codex/config.toml",
+        "files": [
+          "config.toml"
+        ],
+        "example": "[mcp_servers.my-tool]\ncommand = [\"node\", \"/path/to/mcp-server.js\"]\nenabled_tools = [\"tool-a\"]\nrequired = false"
+      },
+      {
+        "type": "config",
+        "scope": "global",
+        "path": "~/.codex/config.toml",
+        "files": [
+          "config.toml"
+        ],
+        "example": "model = \"gpt-5.3-codex\"\napproval_policy = \"on-request\"\nsandbox_mode = \"workspace-write\"\nmodel_reasoning_effort = \"high\""
+      },
+      {
+        "type": "config",
+        "scope": "project",
+        "path": ".codex/config.toml",
+        "files": [
+          "config.toml"
+        ],
+        "example": "model = \"gpt-5.3-codex\"\napproval_policy = \"never\"\npersonality = \"pragmatic\""
+      }
+    ]
+  },
+  {
+    "platform": "GitHub Copilot",
+    "installations": [
+      {
+        "type": "instructions",
+        "scope": "project",
+        "path": ".github/copilot-instructions.md",
+        "files": [
+          "copilot-instructions.md"
+        ],
+        "example": "## Coding Standards\n\n- Use TypeScript for all new files\n- Follow the Airbnb style guide\n- Write unit tests for all public functions"
+      },
+      {
+        "type": "instructions",
+        "scope": "project",
+        "path": ".github/instructions/<name>.instructions.md",
+        "files": [
+          "<name>.instructions.md"
+        ],
+        "example": "---\napplyTo: \"**/*.py\"\n---\n\n# Python Standards\n\n- Use type hints on all function signatures\n- Follow PEP 8 naming conventions"
+      },
+      {
+        "type": "instructions",
+        "scope": "global",
+        "path": "~/.config/Code/User/settings.json",
+        "windowsPath": "%APPDATA%\\Code\\User\\settings.json",
+        "files": [
+          "settings.json"
+        ],
+        "example": "{\n  \"github.copilot.chat.codeGeneration.instructions\": [\n    { \"text\": \"Always use const instead of let when not reassigned.\" }\n  ]\n}"
+      },
+      {
+        "type": "agent",
+        "scope": "project",
+        "path": ".github/agents/<name>.agent.md",
+        "files": [
+          "<name>.agent.md"
+        ],
+        "example": "---\ndescription: \"Writes unit and integration tests\"\ntools:\n  - read\n  - edit\n  - search\n---\n\n# Test Writer Agent\n\nYou are a testing specialist."
+      },
+      {
+        "type": "agent",
+        "scope": "global",
+        "path": "~/.config/copilot/agents/<name>.agent.md",
+        "windowsPath": "%USERPROFILE%\\.config\\copilot\\agents\\<name>.agent.md",
+        "files": [
+          "<name>.agent.md"
+        ],
+        "example": "---\ndescription: \"Reviews code for security vulnerabilities\"\ntools:\n  - read\n  - search\n---\n\n# Security Auditor\n\nAnalyze code for common vulnerabilities."
+      },
+      {
+        "type": "prompt",
+        "scope": "project",
+        "path": ".github/prompts/<name>.prompt.md",
+        "files": [
+          "<name>.prompt.md"
+        ],
+        "example": "---\ndescription: \"Generate a new React component with tests\"\nagent: \"agent\"\n---\n\nCreate a new React component based on the requirements.\nComponent: ${input:componentName:Enter component name}"
+      },
+      {
+        "type": "mcp",
+        "scope": "project",
+        "path": ".vscode/mcp.json",
+        "files": [
+          "mcp.json"
+        ],
+        "example": "{\n  \"servers\": {\n    \"my-mcp-server\": {\n      \"type\": \"stdio\",\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@my-org/my-mcp-server\"]\n    }\n  }\n}"
+      },
+      {
+        "type": "mcp",
+        "scope": "global",
+        "path": "~/.config/Code/User/mcp.json",
+        "windowsPath": "%APPDATA%\\Code\\User\\mcp.json",
+        "files": [
+          "mcp.json"
+        ],
+        "example": "{\n  \"servers\": {\n    \"my-mcp-server\": {\n      \"type\": \"stdio\",\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@my-org/my-mcp-server\"]\n    }\n  }\n}"
+      }
+    ]
+  },
+  {
+    "platform": "Cursor",
+    "installations": [
+      {
+        "type": "rule",
+        "scope": "global",
+        "path": "Cursor Settings > General > Rules for AI",
+        "files": [],
+        "example": "Always use TypeScript with strict mode.\nPrefer functional components in React.\nUse 2-space indentation."
+      },
+      {
+        "type": "rule",
+        "scope": "project",
+        "path": ".cursor/rules/",
+        "files": [
+          "*.mdc",
+          "or [rule-name]/RULE.md"
+        ],
+        "example": "---\ndescription: \"Enforce coding standards\"\nglobs: [\"src/**/*.ts\"]\nalwaysApply: false\n---\n# Standards\n- Use strict TypeScript"
+      },
+      {
+        "type": "agent",
+        "scope": "project",
+        "path": "AGENTS.md",
+        "files": [
+          "AGENTS.md"
+        ],
+        "example": "# Project Instructions for AI Agents\n## Build Commands\n- Install: `npm install`\n- Test: `npm test`"
+      },
+      {
+        "type": "rule (deprecated)",
+        "scope": "project",
+        "path": ".cursorrules",
+        "files": [
+          ".cursorrules"
+        ],
+        "example": "Use TypeScript strict mode.\nPrefer const over let."
+      },
+      {
+        "type": "mcp",
+        "scope": "project",
+        "path": ".cursor/mcp.json",
+        "files": [
+          "mcp.json"
+        ],
+        "example": "{\"mcpServers\": {\n  \"my-tool\": {\n    \"command\": \"npx\",\n    \"args\": [\"-y\", \"@my-org/server\"]}}}"
+      },
+      {
+        "type": "mcp",
+        "scope": "global",
+        "path": "~/.cursor/mcp.json",
+        "windowsPath": "%USERPROFILE%\\.cursor\\mcp.json",
+        "files": [
+          "mcp.json"
+        ],
+        "example": "{\"mcpServers\": {\n  \"brave-search\": {\n    \"command\": \"npx\",\n    \"args\": [\"-y\", \"@anthropic/mcp-server-brave-search\"]}}}"
+      }
+    ]
+  },
+  {
+    "platform": "gemini-cli",
+    "installations": [
+      {
+        "type": "rule",
+        "scope": "global",
+        "path": "~/.gemini/GEMINI.md",
+        "windowsPath": "%USERPROFILE%\\.gemini\\GEMINI.md",
+        "files": [
+          "GEMINI.md"
+        ],
+        "example": "# Global Instructions\n\n- Always use TypeScript with strict mode.\n- Follow the Google Style Guide."
+      },
+      {
+        "type": "rule",
+        "scope": "project",
+        "path": "GEMINI.md",
+        "files": [
+          "GEMINI.md"
+        ],
+        "example": "# Project Instructions\n\n## Tech Stack\n- Next.js 15 with App Router\n- Tailwind CSS"
+      },
+      {
+        "type": "agent",
+        "scope": "global",
+        "path": "~/.gemini/agents/<name>.md",
+        "windowsPath": "%USERPROFILE%\\.gemini\\agents\\<name>.md",
+        "files": [
+          "<name>.md"
+        ],
+        "example": "---\nname: code-reviewer\ndescription: Reviews code for bugs and style issues.\ntools:\n  - read_file\n---\n\n# Code Reviewer\n\nYou review code for bugs and best practices."
+      },
+      {
+        "type": "agent",
+        "scope": "project",
+        "path": ".gemini/agents/<name>.md",
+        "files": [
+          "<name>.md"
+        ],
+        "example": "---\nname: test-writer\ndescription: Writes unit tests for code.\ntools:\n  - read_file\n  - write_file\n---\n\n# Test Writer\n\nYou write thorough unit tests."
+      },
+      {
+        "type": "skill",
+        "scope": "global",
+        "path": "~/.gemini/skills/<name>/SKILL.md",
+        "windowsPath": "%USERPROFILE%\\.gemini\\skills\\<name>\\SKILL.md",
+        "files": [
+          "SKILL.md"
+        ],
+        "example": "---\nname: api-auditor\ndescription: Audits and tests API endpoints.\n---\n\n# API Auditor\n\nYou test and audit API endpoints."
+      },
+      {
+        "type": "skill",
+        "scope": "project",
+        "path": ".gemini/skills/<name>/SKILL.md",
+        "files": [
+          "SKILL.md"
+        ],
+        "example": "---\nname: code-documenter\ndescription: Generates documentation for code.\n---\n\n# Code Documenter\n\nYou generate clear documentation for code."
+      },
+      {
+        "type": "mcp",
+        "scope": "project",
+        "path": ".gemini/settings.json",
+        "files": [
+          "settings.json"
+        ],
+        "example": "{\n  \"mcpServers\": {\n    \"my-server\": {\n      \"command\": \"node\",\n      \"args\": [\"server.js\"]\n    }\n  }\n}"
+      },
+      {
+        "type": "mcp",
+        "scope": "global",
+        "path": "~/.gemini/settings.json",
+        "windowsPath": "%USERPROFILE%\\.gemini\\settings.json",
+        "files": [
+          "settings.json"
+        ],
+        "example": "{\n  \"mcpServers\": {\n    \"my-server\": {\n      \"command\": \"node\",\n      \"args\": [\"server.js\"]\n    }\n  }\n}"
+      },
+      {
+        "type": "command",
+        "scope": "global",
+        "path": "~/.gemini/commands/<name>.toml",
+        "windowsPath": "%USERPROFILE%\\.gemini\\commands\\<name>.toml",
+        "files": [
+          "<name>.toml"
+        ],
+        "example": "prompt = \"\"\"Review the following code:\n\nFiles: {{args}}\"\"\""
+      },
+      {
+        "type": "command",
+        "scope": "project",
+        "path": ".gemini/commands/<name>.toml",
+        "files": [
+          "<name>.toml"
+        ],
+        "example": "prompt = \"\"\"Run tests and report coverage:\n\n{{args}}\"\"\""
+      }
+    ]
+  }
+]
