@@ -1,0 +1,33 @@
+name: Generate Readmes from tool-info.json
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ai-tools/*/tool-info.json'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate readme files
+        run: bash ai-tools/generate-readmes.sh
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git diff --quiet ai-tools/*/readme.md && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit updated readmes
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ai-tools/*/readme.md
+          git commit -m "Auto-generate readme files from tool-info.json"
+          git push

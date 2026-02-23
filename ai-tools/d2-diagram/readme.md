@@ -8,9 +8,22 @@ Generate D2 diagram files (.d2) for technical reference — flowcharts, architec
 diagramming, d2, flowchart, architecture, visualization
 
 ## Overview
-This skill generates `.d2` diagram files for use with the D2 VS Code extension. It includes templates for common diagram types (flowcharts, architecture, sequence, state machine, SQL schema, class diagrams, cloud infrastructure, and grid dashboards), a comprehensive syntax quick-reference, and advanced features like layers, scenarios, themes, and imports. The skill follows a guided workflow to help users select the right template and produce validated, renderable diagrams.
+This skill generates .d2 diagram files for use with the D2 VS Code extension. It includes templates for common diagram types (flowcharts, architecture, sequence, state machine, SQL schema, class diagrams, cloud infrastructure, and grid dashboards), a comprehensive syntax quick-reference, and advanced features like layers, scenarios, themes, and imports. The skill follows a guided workflow to help users select the right template and produce validated, renderable diagrams.
 
-## Installation
+## Try These Prompts
+- Create a D2 architecture diagram showing my microservices with an API gateway, auth service, and Postgres database.
+- Generate a D2 sequence diagram for a login flow: user submits credentials, backend validates, JWT is returned.
+- Make a D2 state machine diagram for an order lifecycle: pending, confirmed, shipped, delivered, cancelled.
+- Build a D2 SQL schema diagram with a users table, posts table, and a foreign key relationship between them.
+
+## Use Cases
+- System and microservices architecture documentation
+- API and authentication flow sequence diagrams
+- Database schema visualization
+- Cloud infrastructure and VPC topology diagrams
+- State machine and lifecycle flow diagrams
+
+## Additional Requirements
 Requires D2 CLI installed (https://d2lang.com) and VS Code D2 extension for preview.
 
 ---

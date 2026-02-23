@@ -10,8 +10,18 @@ solid-principles, code-quality, naming-conventions, development-agent, best-prac
 ## Overview
 SOLID Developer is a development agent that enforces disciplined coding practices across every interaction. It requires literal interpretation of requests, strict SOLID principle adherence, and a rigorous naming convention process where names must be explicit, clear, and unambiguous. The agent prioritizes scope discipline -- answering exactly what was asked without adding unrequested features or premature abstractions -- and maintains honest error acknowledgment throughout the development process.
 
-## Installation
-Follow the standard EnhanceClaude installation instructions.
+## Try These Prompts
+- Add a function that filters users who are eligible for a promotion
+- Refactor this class so each method has a single responsibility
+- I need a new TypeScript type for the Google Drive file response shape
+- Add input validation to this form handler — nothing else, just validation
+
+## Use Cases
+- Enforcing SOLID principles on new or existing codebases
+- Code reviews focused on naming clarity and scope discipline
+- Incremental feature development one task at a time
+- Refactoring sessions with strict scope control
+- Projects where literal interpretation and no-surprise behavior are critical
 
 ---
 *Part of the [EnhanceClaude](https://enhanceclaude.com) AI tools collection.*

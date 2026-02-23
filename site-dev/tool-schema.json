@@ -39,13 +39,23 @@
       "items": { "type": "string" },
       "description": "Searchable tags for categorization"
     },
+    "overview": {
+      "type": "string",
+      "description": "Detailed overview paragraph shown in the expanded detail view"
+    },
     "customInstructions": {
       "type": "string",
       "description": "Special installation or usage instructions specific to this tool, if generic install instructions are not sufficient"
     },
-    "readme": {
-      "type": "string",
-      "description": "Filename of the readme to render as module content (e.g. readme.md)"
+    "promptSuggestions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Example prompts the user can copy/paste to try this tool"
+    },
+    "applications": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Use cases"
     },
     "featured": {
       "type": "boolean",

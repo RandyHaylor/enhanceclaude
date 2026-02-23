@@ -863,22 +863,112 @@
 
   .detail-close-btn:hover { color: #fff; background: var(--border); }
 
-  .detail-readme {
+  .detail-body {
     font-size: 0.85rem;
     line-height: 1.7;
     color: rgba(230, 237, 243, 0.85);
   }
 
-  .detail-readme h1 { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 1rem 0 0.5rem; }
-  .detail-readme h2 { font-size: 0.95rem; font-weight: 600; color: var(--primary); margin: 1rem 0 0.4rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
-  .detail-readme p { margin-bottom: 0.6rem; }
-  .detail-readme hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
-  .detail-readme em { color: var(--text-muted); }
-  .detail-readme strong { color: #fff; }
-  .detail-readme a { color: var(--primary); text-decoration: underline; }
-  .detail-readme code { font-family: monospace; font-size: 0.8rem; background: var(--bg-surface); padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid var(--border); }
-  .detail-readme ul, .detail-readme ol { margin: 0.4rem 0 0.6rem 1.25rem; }
-  .detail-readme li { margin-bottom: 0.25rem; }
+  .detail-section {
+    margin-bottom: 1.25rem;
+  }
+
+  .detail-section:last-child { margin-bottom: 0; }
+
+  .detail-section-heading {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .detail-overview {
+    margin: 0;
+    color: rgba(230, 237, 243, 0.85);
+  }
+
+  .detail-prompts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .detail-prompt-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    background: rgba(15, 17, 23, 0.5);
+    border: 1px solid rgba(48, 54, 61, 0.5);
+    border-radius: 6px;
+    padding: 0.625rem 0.75rem;
+  }
+
+  .detail-prompt-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    background: none;
+    border: none;
+    padding: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .detail-prompt-copy {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 4px;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+    margin-top: 0.1rem;
+  }
+
+  .detail-prompt-copy .material-symbols-outlined { font-size: 14px; }
+
+  .detail-prompt-copy:hover {
+    color: var(--primary);
+    border-color: rgba(19, 127, 236, 0.3);
+    background: rgba(19, 127, 236, 0.1);
+  }
+
+  .detail-prompt-copy.is-copied {
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.3);
+    background: rgba(34, 197, 94, 0.1);
+  }
+
+  .detail-applications {
+    margin: 0 0 0 1.25rem;
+    list-style: disc;
+  }
+
+  .detail-applications li {
+    margin-bottom: 0.25rem;
+    color: rgba(230, 237, 243, 0.85);
+  }
+
+  .detail-requirements {
+    background: rgba(15, 17, 23, 0.5);
+    border: 1px solid rgba(48, 54, 61, 0.5);
+    border-left: 3px solid var(--primary);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-main);
+  }
 
 
   /* -- Install Dialog -- */
@@ -1350,8 +1440,12 @@ const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_RE
 const GITHUB_RAW_URL = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
 const INSTALL_INSTRUCTIONS_PATH = `${GITHUB_RAW_URL}/site-html/installation-instructions.json`;
 
+/** Local dev mode — resolved async before loading tools */
+let IS_LOCAL = false;
+const LOCAL_BASE = '..';
+
 /* ============================================================
-   Section 2: Data Loader — fetches live from GitHub
+   Section 2: Data Loader
    ============================================================ */
 
 /** Update the loading bar progress and status text */
@@ -1362,27 +1456,44 @@ function updateLoadingBar(percent, statusText) {
   if (status) status.textContent = statusText;
 }
 
-/** List subfolders in ai-tools/ via GitHub Contents API */
+/** Resolve a tool-relative path to either local or GitHub URL */
+function toolUrl(folderName, file) {
+  if (IS_LOCAL) return `${LOCAL_BASE}/${TOOLS_DIR}/${folderName}/${file}`;
+  return `${GITHUB_RAW_URL}/${TOOLS_DIR}/${folderName}/${file}`;
+}
+
+/** List subfolders in ai-tools/ */
 async function fetchToolFolderList() {
+  if (IS_LOCAL) {
+    // Local dev: read the generated folder list
+    const resp = await fetch(`${LOCAL_BASE}/${TOOLS_DIR}/folders.json`);
+    if (!resp.ok) throw new Error('Missing ai-tools/folders.json — run: ls -d ai-tools/*/ | xargs -n1 basename | jq -R . | jq -s . > ai-tools/folders.json');
+    return await resp.json();
+  }
   const resp = await fetch(GITHUB_API_URL);
   if (!resp.ok) throw new Error(`GitHub API returned ${resp.status}`);
   const items = await resp.json();
   return items.filter(item => item.type === 'dir').map(item => item.name);
 }
 
-/** Fetch a single tool-info.json from raw.githubusercontent.com */
+/** Fetch a single tool-info.json */
 async function fetchToolInfo(folderName) {
-  const url = `${GITHUB_RAW_URL}/${TOOLS_DIR}/${folderName}/tool-info.json`;
-  const resp = await fetch(url);
-  if (!resp.ok) return null;
-  const data = await resp.json();
-  data.folder = folderName;
-  return data;
+  const url = toolUrl(folderName, 'tool-info.json');
+  try {
+    const resp = await fetch(url);
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    data.folder = folderName;
+    return data;
+  } catch {
+    return null;
+  }
 }
 
 /** Fetch all tools: list folders, then fetch each tool-info.json */
-async function fetchAllToolsFromGitHub() {
-  updateLoadingBar(5, 'contacting github...');
+async function fetchAllTools() {
+  const source = IS_LOCAL ? 'local' : 'github';
+  updateLoadingBar(5, `loading from ${source}...`);
 
   const folders = await fetchToolFolderList();
   updateLoadingBar(15, `found ${folders.length} tool folders`);
@@ -1402,10 +1513,13 @@ async function fetchAllToolsFromGitHub() {
   return tools;
 }
 
-/** Fetch installation instructions; gracefully returns null if missing */
+/** Fetch installation instructions */
 async function fetchInstallInstructions() {
+  const url = IS_LOCAL
+    ? `${LOCAL_BASE}/site-html/installation-instructions.json`
+    : INSTALL_INSTRUCTIONS_PATH;
   try {
-    const resp = await fetch(INSTALL_INSTRUCTIONS_PATH);
+    const resp = await fetch(url);
     if (!resp.ok) return null;
     return await resp.json();
   } catch {
@@ -1695,82 +1809,6 @@ function syncDesktopFilters() {
    Section 5: Tool Detail Expansion
    ============================================================ */
 
-/** Convert basic markdown to HTML */
-function simpleMarkdownToHtml(md) {
-  /** Apply inline formatting to a line */
-  function inlineFmt(line) {
-    let html = esc(line);
-    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-    return html;
-  }
-
-  const lines = md.split('\n');
-  const out = [];
-  let i = 0;
-
-  while (i < lines.length) {
-    const line = lines[i].trimEnd();
-
-    // Skip blank lines
-    if (!line.trim()) { i++; continue; }
-
-    // Headings
-    if (line.startsWith('### ')) { out.push(`<h2>${inlineFmt(line.slice(4))}</h2>`); i++; continue; }
-    if (line.startsWith('## ')) { out.push(`<h2>${inlineFmt(line.slice(3))}</h2>`); i++; continue; }
-    if (line.startsWith('# ')) { out.push(`<h1>${inlineFmt(line.slice(2))}</h1>`); i++; continue; }
-
-    // Horizontal rule
-    if (/^---+$/.test(line.trim())) { out.push('<hr/>'); i++; continue; }
-
-    // Bullet list
-    if (/^[\-\*]\s/.test(line.trim())) {
-      let items = [];
-      while (i < lines.length && /^[\-\*]\s/.test(lines[i].trim())) {
-        items.push(`<li>${inlineFmt(lines[i].trim().slice(2))}</li>`);
-        i++;
-      }
-      out.push(`<ul>${items.join('')}</ul>`);
-      continue;
-    }
-
-    // Numbered list
-    if (/^\d+\.\s/.test(line.trim())) {
-      let items = [];
-      while (i < lines.length && /^\d+\.\s/.test(lines[i].trim())) {
-        items.push(`<li>${inlineFmt(lines[i].trim().replace(/^\d+\.\s/, ''))}</li>`);
-        i++;
-      }
-      out.push(`<ol>${items.join('')}</ol>`);
-      continue;
-    }
-
-    // Paragraph (collect consecutive non-blank, non-special lines)
-    let para = [];
-    while (i < lines.length && lines[i].trim() && !/^[#\-\*]/.test(lines[i].trim()) && !/^\d+\.\s/.test(lines[i].trim()) && !/^---+$/.test(lines[i].trim())) {
-      para.push(inlineFmt(lines[i].trim()));
-      i++;
-    }
-    if (para.length) out.push(`<p>${para.join(' ')}</p>`);
-  }
-
-  return out.join('\n');
-}
-
-/** Fetch the readme.md for a tool from GitHub raw */
-async function fetchToolReadme(folder, readmeFile) {
-  const url = `${GITHUB_RAW_URL}/${TOOLS_DIR}/${folder}/${readmeFile || 'readme.md'}`;
-  try {
-    const resp = await fetch(url);
-    if (!resp.ok) return null;
-    return await resp.text();
-  } catch {
-    return null;
-  }
-}
-
 /** Collapse any currently expanded tool card */
 function collapseExpandedCard() {
   const expanded = document.querySelector('.tool-card.is-expanded');
@@ -1780,15 +1818,65 @@ function collapseExpandedCard() {
     if (panel) panel.remove();
   }
   // Clear URL param
-  if (window.history.replaceState) {
+  try {
     const url = new URL(window.location);
     url.searchParams.delete('toolName');
     window.history.replaceState({}, '', url);
+  } catch { /* file:// protocol */ }
+}
+
+/** Build detail panel HTML from tool-info.json data */
+function buildDetailHtml(tool) {
+  let html = '';
+
+  // Overview
+  if (tool.overview) {
+    html += `<div class="detail-section">
+      <h4 class="detail-section-heading">Overview</h4>
+      <p class="detail-overview">${esc(tool.overview)}</p>
+    </div>`;
   }
+
+  // Prompt Suggestions
+  if (tool.promptSuggestions && tool.promptSuggestions.length) {
+    html += `<div class="detail-section">
+      <h4 class="detail-section-heading">Try These Prompts</h4>
+      <div class="detail-prompts">`;
+    for (const prompt of tool.promptSuggestions) {
+      html += `<div class="detail-prompt-card">
+        <code class="detail-prompt-text">${esc(prompt)}</code>
+        <button class="detail-prompt-copy" title="Copy prompt">
+          <span class="material-symbols-outlined">content_copy</span>
+        </button>
+      </div>`;
+    }
+    html += `</div></div>`;
+  }
+
+  // Applications / Use Cases
+  if (tool.applications && tool.applications.length) {
+    html += `<div class="detail-section">
+      <h4 class="detail-section-heading">Use Cases</h4>
+      <ul class="detail-applications">`;
+    for (const app of tool.applications) {
+      html += `<li>${esc(app)}</li>`;
+    }
+    html += `</ul></div>`;
+  }
+
+  // Additional Requirements
+  if (tool.customInstructions) {
+    html += `<div class="detail-section">
+      <h4 class="detail-section-heading">Additional Requirements</h4>
+      <div class="detail-requirements">${esc(tool.customInstructions)}</div>
+    </div>`;
+  }
+
+  return html;
 }
 
 /** Expand a tool card to show the detail panel */
-async function expandToolCard(folder) {
+function expandToolCard(folder) {
   const tool = allTools.find(t => t.folder === folder);
   if (!tool) return;
 
@@ -1805,12 +1893,12 @@ async function expandToolCard(folder) {
   panel.className = 'tool-detail-panel';
   panel.innerHTML = `
     <div class="detail-header">
-      <span class="detail-title">Loading...</span>
+      <span class="detail-title">${esc(tool.name)}</span>
       <button class="detail-close-btn" title="Close">
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
-    <div class="detail-readme"></div>
+    <div class="detail-body">${buildDetailHtml(tool)}</div>
   `;
 
   cardEl.querySelector('.card-inner').appendChild(panel);
@@ -1821,28 +1909,32 @@ async function expandToolCard(folder) {
     collapseExpandedCard();
   });
 
+  // Wire prompt copy buttons
+  panel.querySelectorAll('.detail-prompt-copy').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const text = btn.closest('.detail-prompt-card').querySelector('.detail-prompt-text').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (icon) icon.textContent = 'check';
+        btn.classList.add('is-copied');
+        setTimeout(() => {
+          if (icon) icon.textContent = 'content_copy';
+          btn.classList.remove('is-copied');
+        }, 1500);
+      });
+    });
+  });
+
   // Update URL
-  if (window.history.replaceState) {
+  try {
     const url = new URL(window.location);
     url.searchParams.set('toolName', folder);
     window.history.replaceState({}, '', url);
-  }
+  } catch { /* file:// protocol */ }
 
   // Scroll into view
   cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-  // Fetch and render readme
-  const readmeText = await fetchToolReadme(folder, tool.readme);
-  const readmeContainer = panel.querySelector('.detail-readme');
-
-  if (readmeText) {
-    readmeContainer.innerHTML = simpleMarkdownToHtml(readmeText);
-  } else {
-    readmeContainer.innerHTML = `<p style="color:var(--text-muted)">No readme available.</p>`;
-  }
-
-  // Update header text
-  panel.querySelector('.detail-title').textContent = tool.name;
 }
 
 /** Wire card click to expand (but not on install/share button clicks) */
@@ -1853,7 +1945,8 @@ function wireCardExpansion() {
     if (shareBtn) {
       e.stopPropagation();
       const folder = shareBtn.dataset.folder;
-      const shareUrl = `${SITE_BASE_URL}?toolName=${encodeURIComponent(folder)}`;
+      const base = IS_LOCAL ? location.href.split('?')[0] : SITE_BASE_URL;
+      const shareUrl = `${base}?toolName=${encodeURIComponent(folder)}`;
       navigator.clipboard.writeText(shareUrl).then(() => {
         shareBtn.classList.add('is-copied');
         const icon = shareBtn.querySelector('.material-symbols-outlined');
@@ -2068,14 +2161,27 @@ function wireInstallDialog() {
    Section 7: Init
    ============================================================ */
 
+/** Check for is-dev.html sentinel file to enable local dev mode */
+async function detectDevMode() {
+  try {
+    const resp = await fetch('is-dev.html', { method: 'HEAD' });
+    return resp.ok;
+  } catch {
+    return false;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   const loadingBar = document.getElementById('loading-bar');
   const cardsContainer = document.getElementById('cards-container');
 
+  // Check for local dev mode
+  IS_LOCAL = await detectDevMode();
+
   try {
-    // Fetch tools from GitHub live, install instructions in parallel
+    // Fetch tools + install instructions in parallel
     const [tools, instructions] = await Promise.all([
-      fetchAllToolsFromGitHub(),
+      fetchAllTools(),
       fetchInstallInstructions()
     ]);
 

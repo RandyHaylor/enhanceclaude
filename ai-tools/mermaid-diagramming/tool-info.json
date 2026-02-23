@@ -6,7 +6,20 @@
   "version": "1.0.0",
   "author": "EnhanceClaude",
   "tags": ["diagramming", "mermaid", "flowchart", "sequence-diagram", "visualization"],
+  "overview": "This skill provides comprehensive guidance for creating and editing Mermaid diagrams in VS Code using the MermaidChart extension. It covers all essential syntax including node shapes, edge types, subgraph layout rules, styling, and configuration. Notably, it documents the critical subgraph direction behavior where direction TB is silently ignored when nodes link across subgraphs, saving you from one of Mermaid's most common pitfalls.",
   "customInstructions": "Requires VS Code MermaidChart extension for preview.",
-  "readme": "readme.md",
+  "promptSuggestions": [
+    "Create a Mermaid flowchart showing a CI/CD pipeline from code push to production deployment.",
+    "Make a Mermaid diagram with two side-by-side subgraphs, each flowing top-down internally.",
+    "Generate a Mermaid flowchart for a password reset flow with decision nodes for token validity.",
+    "Build a styled Mermaid diagram with dark theme colors showing a microservices request path."
+  ],
+  "applications": [
+    "Embedding diagrams directly in Markdown documentation",
+    "Flowcharts for technical process documentation",
+    "Subgraph layouts for multi-component system views",
+    "Sequence and flow diagrams for API or auth flows",
+    "Styled diagrams for presentations and wikis"
+  ],
   "featured": false
 }
