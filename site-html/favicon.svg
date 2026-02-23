@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="br"><rect x="0" y="0" width="32" height="32" rx="4"/></clipPath>
+  </defs>
+  <rect width="32" height="32" rx="4" fill="#000"/>
+  <g clip-path="url(#br)">
+    <rect x="0.5" y="0.5" width="31" height="31" fill="none" stroke="#444" stroke-width="1"/>
+    <line x1="32" y1="0" x2="32" y2="32" stroke="#666" stroke-width="2"/>
+    <line x1="0" y1="32" x2="32" y2="32" stroke="#666" stroke-width="2"/>
+  </g>
+  <text x="26" y="25" text-anchor="end" font-family="'Courier New', Courier, monospace" font-size="24" font-weight="700" fill="#fff">e</text>
+</svg>
