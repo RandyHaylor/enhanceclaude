@@ -147,6 +147,31 @@
     letter-spacing: -0.02em;
   }
 
+  .logo-separator {
+    width: 1px;
+    height: 1.25rem;
+    background: var(--border);
+    display: none;
+  }
+
+  .logo-tagline {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+    display: none;
+    padding: 0.3rem 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+  }
+
+  @media (min-width: 768px) {
+    .logo-separator { display: inline-block; }
+    .logo-tagline { display: inline-block; }
+  }
+
   .search-wrapper {
     flex: 1;
     max-width: 36rem;
@@ -748,6 +773,67 @@
 
   .dialog-meta-item .material-symbols-outlined { font-size: 16px; color: var(--text-muted); }
 
+  .dialog-clone-block {
+    background: rgba(15, 17, 23, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .dialog-clone-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.375rem;
+  }
+
+  .dialog-clone-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dialog-clone-row code {
+    flex: 1;
+    font-family: monospace;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.625rem;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-main);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 6px;
+    background: var(--border);
+    color: var(--text-muted);
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .copy-btn:hover {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  .copy-btn .material-symbols-outlined { font-size: 16px; }
+
+  .copy-btn--copied {
+    background: #22c55e;
+    color: #fff;
+  }
+
   .dialog-platform-block {
     background: rgba(15, 17, 23, 0.6);
     border: 1px solid var(--border);
@@ -909,6 +995,8 @@
         <span class="material-symbols-outlined" style="font-size:22px">terminal</span>
       </div>
       <span class="logo-text">enhanceclaude.com</span>
+      <span class="logo-separator"></span>
+      <span class="logo-tagline">super charge your ai coding with advanced tools</span>
     </div>
 
     <!-- Search -->
@@ -981,18 +1069,6 @@
   <!-- MAIN CONTENT -->
   <main class="main-content">
     <!-- Hero Banner -->
-    <section class="hero">
-      <div class="hero-dots"></div>
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="hero-badge-dot"></span>
-          Registry Live
-        </div>
-        <h2>Supercharging modern<br/><span class="hero-gradient-text">AI coding tools</span></h2>
-        <p>The missing registry for AI skills and agents. Discover and integrate capabilities directly into your workflow.</p>
-      </div>
-    </section>
-
     <!-- Stats Bar -->
     <div class="stats-bar">
       <div style="display:flex;align-items:baseline;gap:0.5rem">
@@ -1339,6 +1415,19 @@ function getInstallEntriesForType(type) {
 /**
  * Populate and show the install dialog for a given tool.
  */
+/** Copy text to clipboard and flash the button green */
+function copyToClipboard(text, btnEl) {
+  navigator.clipboard.writeText(text).then(() => {
+    btnEl.classList.add('copy-btn--copied');
+    const icon = btnEl.querySelector('.material-symbols-outlined');
+    if (icon) icon.textContent = 'check';
+    setTimeout(() => {
+      btnEl.classList.remove('copy-btn--copied');
+      if (icon) icon.textContent = 'content_copy';
+    }, 1500);
+  });
+}
+
 function showInstallDialog(tool) {
   const dialog = document.getElementById('install-dialog');
   const titleEl = document.getElementById('dialog-title');
@@ -1346,7 +1435,23 @@ function showInstallDialog(tool) {
 
   titleEl.textContent = `Install: ${tool.name}`;
 
+  const folderName = tool.folder || 'my-tool';
+  const cloneCmd = `git clone --depth 1 https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git && cp -r ${GITHUB_REPO}/${TOOLS_DIR}/${folderName} ./ && rm -rf ${GITHUB_REPO}`;
+
   let html = '';
+
+  // Clone commands at top
+  html += `<div class="dialog-section">
+    <div class="dialog-section-label">Download Command <span style="font-weight:400;text-transform:none;letter-spacing:0">— see below for correct location</span></div>
+    <div class="dialog-clone-block">
+      <div class="dialog-clone-row">
+        <code>${esc(cloneCmd)}</code>
+        <button class="copy-btn" onclick="copyToClipboard(this.previousElementSibling.textContent, this)" title="Copy">
+          <span class="material-symbols-outlined">content_copy</span>
+        </button>
+      </div>
+    </div>
+  </div>`;
 
   // Meta info
   html += `<div class="dialog-section">

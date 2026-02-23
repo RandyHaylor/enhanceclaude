@@ -237,7 +237,7 @@
         "example": "---\napplyTo: \"**/*.py\"\n---\n\n# Python Standards\n\n- Use type hints on all function signatures\n- Follow PEP 8 naming conventions"
       },
       {
-        "type": "instructions",
+        "type": "instructions (deprecated)",
         "scope": "global",
         "path": "~/.config/Code/User/settings.json",
         "windowsPath": "%APPDATA%\\Code\\User\\settings.json",
@@ -258,8 +258,8 @@
       {
         "type": "agent",
         "scope": "global",
-        "path": "~/.config/copilot/agents/<name>.agent.md",
-        "windowsPath": "%USERPROFILE%\\.config\\copilot\\agents\\<name>.agent.md",
+        "path": "~/.config/Code/User/agents/<name>.agent.md",
+        "windowsPath": "%APPDATA%\\Code\\User\\agents\\<name>.agent.md",
         "files": [
           "<name>.agent.md"
         ],
@@ -301,7 +301,7 @@
       {
         "type": "rule",
         "scope": "global",
-        "path": "Cursor Settings > General > Rules for AI",
+        "path": "Cursor Settings > Rules > User Rules",
         "files": [],
         "example": "Always use TypeScript with strict mode.\nPrefer functional components in React.\nUse 2-space indentation."
       },
