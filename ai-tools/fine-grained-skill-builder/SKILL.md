@@ -1,6 +1,6 @@
 ---
 name: fine-grained-skill-builder
-description: Guide for building fine-grained Claude Code skills where content is split into many small files to minimize tokens loaded per invocation. Use when creating or restructuring a skill to be token-efficient with section-based progressive disclosure.
+description: Guide for building fine-grained skills where content is split into many small files to minimize tokens loaded per invocation. Use when creating or restructuring a skill to be token-efficient with section-based progressive disclosure.
 ---
 
 # Fine-Grained Skill Building Approach
