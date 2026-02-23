@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["platform", "installations"],
+  "properties": {
+    "platform": { "type": "string" },
+    "installations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "scope", "path", "files"],
+        "properties": {
+          "type": { "type": "string" },
+          "scope": { "type": "string" },
+          "path": { "type": "string" },
+          "windowsPath": { "type": "string" },
+          "files": { "type": "array", "items": { "type": "string" } },
+          "example": { "type": "string" }
+        }
+      }
+    }
+  }
+}
