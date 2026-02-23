@@ -1,0 +1,11 @@
+{
+  "name": "Fine-Grained Skill Builder",
+  "type": "skill",
+  "description": "Guide for building fine-grained Claude Code skills where content is split into many small files to minimize tokens loaded per invocation.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["skill-building", "token-optimization", "claude-code", "development"],
+  "readme": "readme.md",
+  "featured": false
+}

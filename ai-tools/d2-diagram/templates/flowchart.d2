@@ -1,0 +1,32 @@
+# TEMPLATE: flowchart.d2
+# Process flows, decision trees, request handling pipelines
+
+direction: right
+
+start: Start {shape: oval}
+validate: Validate Input
+decision1: Valid? {shape: diamond}
+check_cache: Check Cache {shape: cylinder}
+decision2: Cache Hit? {shape: diamond}
+fetch_db: Query Database {shape: cylinder}
+write_cache: Write to Cache
+process: Process & Format
+success: Return 200 {style.fill: "#d4edda"; style.stroke: "#28a745"}
+error: Return 400 {style.fill: "#f8d7da"; style.stroke: "#dc3545"}
+finish: End {shape: oval}
+
+start -> validate
+validate -> decision1
+decision1 -> check_cache: yes
+decision1 -> error: no
+
+check_cache -> decision2
+decision2 -> process: hit
+decision2 -> fetch_db: miss
+
+fetch_db -> write_cache
+write_cache -> process
+
+process -> success
+success -> finish
+error -> finish

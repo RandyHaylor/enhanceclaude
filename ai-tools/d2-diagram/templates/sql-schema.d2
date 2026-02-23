@@ -1,0 +1,59 @@
+# TEMPLATE: sql-schema.d2
+# Database ER diagram with table relationships
+
+direction: right
+
+users: {
+  shape: sql_table
+  id: bigint {constraint: primary_key}
+  email: varchar(255) {constraint: unique}
+  username: varchar(100) {constraint: unique}
+  password_hash: varchar
+  role: enum
+  created_at: timestamp
+}
+
+organizations: {
+  shape: sql_table
+  id: bigint {constraint: primary_key}
+  name: varchar(255)
+  slug: varchar(100) {constraint: unique}
+  plan: enum
+  created_at: timestamp
+}
+
+org_members: {
+  shape: sql_table
+  id: bigint {constraint: primary_key}
+  org_id: bigint {constraint: foreign_key}
+  user_id: bigint {constraint: foreign_key}
+  role: enum
+  joined_at: timestamp
+}
+
+projects: {
+  shape: sql_table
+  id: bigint {constraint: primary_key}
+  org_id: bigint {constraint: foreign_key}
+  created_by: bigint {constraint: foreign_key}
+  name: varchar(255)
+  status: enum
+  created_at: timestamp
+}
+
+audit_log: {
+  shape: sql_table
+  id: bigint {constraint: primary_key}
+  user_id: bigint {constraint: foreign_key}
+  action: varchar(100)
+  resource_type: varchar
+  resource_id: bigint
+  metadata: jsonb
+  created_at: timestamp
+}
+
+users -> org_members: 1:N
+organizations -> org_members: 1:N
+organizations -> projects: 1:N
+users -> projects: created_by {style.stroke-dash: 3}
+users -> audit_log: 1:N

@@ -1,0 +1,4 @@
+- Open `.drawio`, `.dio`, `.drawio.svg`, or `.drawio.png` — visual editor opens by default
+- Switch to XML: `Ctrl+Shift+P` → **View: Reopen Editor With...** → select Text Editor
+- Both editors sync live — edits in one reflect instantly in the other
+- Use XML mode for find/replace on labels or bulk style edits

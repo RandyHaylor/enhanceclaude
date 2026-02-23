@@ -1,0 +1,11 @@
+{
+  "name": "VS Code Agent Teams",
+  "type": "skill",
+  "description": "Workaround for agent teams in VS Code extension where TeamCreate teammates cannot execute tools. Uses an echo-back-and-resume pattern where agents return tool requests instead of executing them directly.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["vscode", "agent-teams", "workaround", "collaboration", "multi-agent"],
+  "readme": "readme.md",
+  "featured": false
+}

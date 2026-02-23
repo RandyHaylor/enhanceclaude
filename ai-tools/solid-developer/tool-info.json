@@ -1,0 +1,11 @@
+{
+  "name": "SOLID Developer",
+  "type": "agent",
+  "description": "Professional development agent enforcing SOLID principles, strict naming conventions, literal interpretation, scope discipline, and honest error acknowledgment. Ensures clean, maintainable code with explicit verbosity.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["solid-principles", "code-quality", "naming-conventions", "development-agent", "best-practices"],
+  "readme": "readme.md",
+  "featured": false
+}

@@ -1,0 +1,11 @@
+{
+  "name": "RTF Creator",
+  "type": "skill",
+  "description": "Generate valid RTF (Rich Text Format) documents from scratch. Produces formatted documents compatible with Word, LibreOffice, and other word processors.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["rtf", "document-creation", "formatting", "word-processing"],
+  "readme": "readme.md",
+  "featured": false
+}

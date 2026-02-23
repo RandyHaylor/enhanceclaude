@@ -1,0 +1,11 @@
+{
+  "name": "Test-Driven Development",
+  "type": "skill",
+  "description": "Enforce strict Test-Driven Development workflow: write one test, make it pass, verify, then proceed. Prevents over-implementation and ensures code matches requirements exactly.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["tdd", "testing", "test-driven", "development-workflow", "code-quality"],
+  "readme": "readme.md",
+  "featured": false
+}

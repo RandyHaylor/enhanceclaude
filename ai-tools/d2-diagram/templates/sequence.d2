@@ -1,0 +1,30 @@
+# TEMPLATE: sequence.d2
+# API flows, auth protocols, request/response chains
+
+flow: {
+  shape: sequence_diagram
+
+  browser: Browser
+  api: API Gateway
+  auth: Auth Service
+  db: Database
+  cache: Cache
+
+  browser -> api: POST /login {username, password}
+  api -> auth: validateCredentials()
+  auth -> db: SELECT user WHERE email = ?
+  db -> auth: user record
+  auth -> auth: bcrypt.compare(password, hash)
+  auth -> cache: SET session:{token} TTL 24h
+  auth -> api: {token, userId, roles}
+  api -> browser: 200 OK {token}
+
+  browser -> api: GET /dashboard (Bearer token)
+  api -> auth: verifyToken(token)
+  auth -> cache: GET session:{token}
+  cache -> auth: userId
+  auth -> api: {valid: true, userId}
+  api -> db: SELECT data WHERE userId = ?
+  db -> api: records
+  api -> browser: 200 OK {data}
+}

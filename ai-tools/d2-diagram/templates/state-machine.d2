@@ -1,0 +1,22 @@
+# TEMPLATE: state-machine.d2
+# Order/entity lifecycle, connection states, workflow stages
+
+direction: right
+
+idle: Idle {shape: oval; style.fill: "#e8f5e9"}
+pending: Pending Payment {style.fill: "#fff8e1"; style.stroke: "#ff9800"}
+processing: Processing {style.fill: "#e3f2fd"; style.stroke: "#2196f3"}
+shipped: Shipped {style.fill: "#e8eaf6"; style.stroke: "#5c6bc0"}
+delivered: Delivered {style.fill: "#e0f2f1"; style.stroke: "#009688"}
+cancelled: Cancelled {style.fill: "#ffebee"; style.stroke: "#f44336"}
+refunded: Refunded {style.fill: "#fce4ec"; style.stroke: "#e91e63"}
+
+idle -> pending: place order
+pending -> processing: payment confirmed
+pending -> cancelled: failed / timeout
+processing -> shipped: fulfillment complete
+processing -> cancelled: out of stock
+shipped -> delivered: delivery confirmed
+shipped -> processing: returned {style.stroke-dash: 3}
+delivered -> refunded: refund requested
+cancelled -> idle: retry {style.stroke-dash: 3}

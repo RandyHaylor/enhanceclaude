@@ -1,0 +1,72 @@
+<!-- Two swimlane containers side by side with a few nodes each -->
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="Electron">
+  <diagram name="Swimlane" id="swimlane-tpl">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="960" math="0" shadow="0" defaultFontFamily="Arial">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- LANE A EDGES -->
+        <mxCell id="ea1" edge="1" source="A1" target="A2" parent="LANE_A" style="edgeStyle=orthogonalEdgeStyle;fontFamily=Arial;fontSize=16;strokeColor=#4a5568;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ea2" edge="1" source="A2" target="A3" parent="LANE_A" style="edgeStyle=orthogonalEdgeStyle;fontFamily=Arial;fontSize=16;strokeColor=#4a5568;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- LANE B EDGES -->
+        <mxCell id="eb1" edge="1" source="B1" target="B2" parent="LANE_B" style="edgeStyle=orthogonalEdgeStyle;fontFamily=Arial;fontSize=16;strokeColor=#4a5568;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eb2" edge="1" source="B2" target="B3" parent="LANE_B" style="edgeStyle=orthogonalEdgeStyle;fontFamily=Arial;fontSize=16;strokeColor=#4a5568;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- CROSS-LANE EDGE -->
+        <mxCell id="ecross" edge="1" source="A3" target="B1" parent="1" style="edgeStyle=orthogonalEdgeStyle;fontFamily=Arial;fontSize=16;strokeColor=#4a5568;dashed=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- LANE A CONTAINER -->
+        <mxCell id="LANE_A" vertex="1" parent="1" value="Lane A" style="swimlane;startSize=44;fillColor=#0f1923;strokeColor=#4a5568;fontColor=#e2e8f0;fontFamily=Arial;fontSize=20;fontStyle=1;swimlaneLine=1;rounded=1;arcSize=3;">
+          <mxGeometry x="10" y="10" width="400" height="400" as="geometry"/>
+        </mxCell>
+
+        <!-- LANE A VERTICES -->
+        <mxCell id="A1" vertex="1" parent="LANE_A" value="Step A1" style="ellipse;fillColor=#2d3748;strokeColor=#4a5568;fontColor=#e2e8f0;fontFamily=Arial;fontSize=16;">
+          <mxGeometry x="120" y="64" width="160" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="A2" vertex="1" parent="LANE_A" value="Step A2" style="rounded=1;fillColor=#1a365d;strokeColor=#2b6cb0;fontColor=#bee3f8;fontFamily=Arial;fontSize=16;">
+          <mxGeometry x="120" y="168" width="160" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="A3" vertex="1" parent="LANE_A" value="Step A3" style="rounded=1;fillColor=#1a365d;strokeColor=#2b6cb0;fontColor=#bee3f8;fontFamily=Arial;fontSize=16;">
+          <mxGeometry x="120" y="272" width="160" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- LANE B CONTAINER -->
+        <mxCell id="LANE_B" vertex="1" parent="1" value="Lane B" style="swimlane;startSize=44;fillColor=#0f1923;strokeColor=#4a5568;fontColor=#e2e8f0;fontFamily=Arial;fontSize=20;fontStyle=1;swimlaneLine=1;rounded=1;arcSize=3;">
+          <mxGeometry x="450" y="10" width="400" height="400" as="geometry"/>
+        </mxCell>
+
+        <!-- LANE B VERTICES -->
+        <mxCell id="B1" vertex="1" parent="LANE_B" value="Step B1" style="rounded=1;fillColor=#1a365d;strokeColor=#2b6cb0;fontColor=#bee3f8;fontFamily=Arial;fontSize=16;">
+          <mxGeometry x="120" y="64" width="160" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="B2" vertex="1" parent="LANE_B" value="Step B2" style="rounded=1;fillColor=#1a365d;strokeColor=#2b6cb0;fontColor=#bee3f8;fontFamily=Arial;fontSize=16;">
+          <mxGeometry x="120" y="168" width="160" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="B3" vertex="1" parent="LANE_B" value="Step B3" style="ellipse;fillColor=#2d3748;strokeColor=#4a5568;fontColor=#e2e8f0;fontFamily=Arial;fontSize=16;">
+          <mxGeometry x="120" y="272" width="160" height="44" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

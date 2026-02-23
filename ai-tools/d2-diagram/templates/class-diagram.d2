@@ -1,0 +1,58 @@
+# TEMPLATE: class-diagram.d2
+# OOP class hierarchies, interfaces, SDK structure docs
+
+direction: down
+
+IRepository: {
+  shape: class
+  +findById(id: string): Entity
+  +findAll(): Entity[]
+  +save(entity: Entity): Entity
+  +delete(id: string): void
+}
+
+BaseEntity: {
+  shape: class
+  +id: string
+  +createdAt: Date
+  +updatedAt: Date
+  #validate(): boolean
+  +toJSON(): object
+}
+
+BaseRepository: {
+  shape: class
+  #db: DatabaseConnection
+  #tableName: string
+  +findById(id: string): Entity
+  +save(entity: Entity): Entity
+  #buildQuery(filters: object): Query
+}
+
+User: {
+  shape: class
+  +email: string
+  +username: string
+  -passwordHash: string
+  +role: UserRole
+  +comparePassword(plain: string): boolean
+}
+
+UserRepository: {
+  shape: class
+  +findByEmail(email: string): User
+  +findByUsername(username: string): User
+}
+
+UserService: {
+  shape: class
+  -repo: UserRepository
+  +register(dto: RegisterDTO): User
+  +login(dto: LoginDTO): AuthToken
+  -hashPassword(plain: string): string
+}
+
+BaseEntity -> User: extends
+IRepository -> BaseRepository: implements
+BaseRepository -> UserRepository: extends
+UserRepository -> UserService: injected {style.stroke-dash: 3}

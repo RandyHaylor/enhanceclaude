@@ -1,0 +1,75 @@
+Different Interpretations of Typographic Hierarchy
+====================================================
+
+Sources:
+--------
+- https://www.rmcad.edu/blog/designing-visual-hierarchies-guiding-the-viewers-eye-through-composition/ (Rocky Mountain College of Art + Design)
+- https://web.mit.edu/6.813/www/sp16/classes/17-typography/ (MIT 6.813 User Interface Design)
+- https://odp.library.tamu.edu/howdyorhello/chapter/four-principles-of-document-design/ (Texas A&M)
+- https://publish.illinois.edu/digital-design/hierarchy/ (University of Illinois)
+
+
+RMCAD — Hierarchy as Communication Tool
+----------------------------------------
+### Visual hierarchy is deliberate information sequencing, not decoration
+
+- Arranging information from most important to least important
+- Four techniques: size/scale, color/contrast, position/alignment, typography/weight
+- Follows natural scanning patterns (left-to-right, top-to-bottom)
+- "Nothing occurs randomly" — every element is placed to shape viewer perception
+- Key framing: hierarchy transforms subjective art into purposeful information delivery
+
+
+MIT — Cognitive Science of Reading
+-----------------------------------
+### The eye doesn't read linearly — it jumps and fixates
+
+- Reading = "fixations" (recognizing words) + "saccades" (jumps between fixation points)
+- Fluent readers recognize entire word shapes, not individual letters
+  - All-caps destroys word shape variation — slow and unsatisfying for body text
+  - Lowercase creates ascenders/descenders that aid recognition
+- Readability ≠ legibility
+  - Legibility: can you distinguish individual letters?
+  - Readability: speed, comprehension, error rate, preference
+- Practical rules:
+  - Max 2-3 typefaces per document
+  - 60-75 characters per line optimal
+  - Leading at 120% of font size
+  - Margins help eyes locate next-line start during saccades
+
+
+Texas A&M — Four Principles of Document Design
+------------------------------------------------
+### Contrast, Repetition, Alignment, Proximity (CRAP)
+
+- Contrast: different elements must be *obviously* different (min 4pt size difference)
+- Repetition: same-level elements formatted identically throughout
+  - "Every Level 2 heading needs to be formatted in that same way"
+- Alignment: left-aligned = primary; indentation = subordinate
+  - Mirrors outline structure — position signals hierarchy level
+- Proximity: related items close together, separated from others by white space
+  - Spatial grouping lets readers understand relationships without reading
+
+
+University of Illinois — Hierarchy as Accessibility
+-----------------------------------------------------
+### Semantic structure enables multiple consumption methods
+
+- H1: one per page (the title)
+- H2-H6: sequential, never skip levels
+- Heading text must be "clear and concise"
+- Structure like an essay outline — H1 is title, subsequent levels organize support
+- Average online attention span: 8.25 seconds — hierarchy is how you survive that
+- Proper hierarchy benefits: assistive technology, comprehension, SEO, navigation
+- Lists break up text; bulleted for unordered, numbered for sequences
+
+
+Cross-Cutting Themes
+---------------------
+### Every source agrees on these fundamentals
+
+- Hierarchy is not optional — it's how humans process information
+- Size, weight, and position are the primary signals
+- Consistency within levels is as important as contrast between levels
+- Readers scan before they read — hierarchy determines if they read at all
+- The concept applies equally to posters, documents, UIs, and code

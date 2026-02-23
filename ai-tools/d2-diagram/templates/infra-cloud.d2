@@ -1,0 +1,64 @@
+# TEMPLATE: infra-cloud.d2
+# Cloud / VPC / subnet topology (AWS-style)
+
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+internet: Internet {shape: cloud}
+devops: CI/CD {shape: person}
+
+edge: Edge {
+  style.fill: "#f3e5f5"
+  dns: Route 53 {shape: hexagon}
+  cdn: CloudFront {shape: cloud}
+  waf: WAF {shape: hexagon}
+  dns -> cdn -> waf
+}
+
+vpc: VPC 10.0.0.0/16 {
+  style.fill: "#e8f5e9"
+
+  pub: Public Subnets {
+    style.fill: "#f1f8e9"
+    alb: ALB {shape: hexagon}
+    nat: NAT Gateway {shape: hexagon}
+  }
+
+  app: Private App Subnets {
+    style.fill: "#e8f5e9"
+    app1: App Server AZ-a
+    app2: App Server AZ-b
+  }
+
+  data: Private Data Subnets {
+    style.fill: "#fff8e1"
+    pg: Postgres Primary {shape: cylinder}
+    replica: Postgres Replica {shape: cylinder; style.stroke-dash: 3}
+    redis: Redis {shape: cylinder; style.fill: "#fff3e0"}
+  }
+
+  pub.alb -> app.app1
+  pub.alb -> app.app2
+  app.app1 -> data.pg
+  app.app2 -> data.pg
+  app.app1 -> data.redis
+  data.pg -> data.replica: replication {style.stroke-dash: 3}
+  app.app1 -> pub.nat: egress {style.stroke-dash: 3}
+}
+
+ext: External Services {
+  style.fill: "#fbe9e7"
+  s3: S3 {shape: cylinder}
+  ses: SES Email {shape: cloud}
+  secrets: Secrets Manager {shape: stored_data}
+}
+
+internet -> edge.cdn
+edge.waf -> vpc.pub.alb
+devops -> vpc.app.app1: deploy {style.stroke-dash: 3}
+vpc.app.app1 -> ext.s3
+vpc.app.app1 -> ext.ses
+vpc.app.app1 -> ext.secrets: read at boot {style.stroke-dash: 3}

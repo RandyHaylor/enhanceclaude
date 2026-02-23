@@ -1,0 +1,31 @@
+# TEMPLATE: grid-dashboard.d2
+# UI layouts, dashboard component maps, screen wireframes
+
+dashboard: App Dashboard {
+  grid-rows: 3
+  grid-columns: 4
+  style.fill: "#f5f5f5"
+
+  header: Header / Nav {
+    grid-column-span: 4
+    style.fill: "#1565c0"
+    style.font-color: "#ffffff"
+    style.bold: true
+  }
+
+  sidebar: Sidebar {
+    grid-row-span: 2
+    style.fill: "#e3f2fd"
+  }
+
+  kpi1: Total Users {style.fill: "#fff"; style.stroke: "#90caf9"}
+  kpi2: Revenue MTD {style.fill: "#fff"; style.stroke: "#a5d6a7"}
+  kpi3: Active Sessions {style.fill: "#fff"; style.stroke: "#ffcc80"}
+
+  chart: Main Chart {
+    grid-column-span: 2
+    style.fill: "#fff"
+  }
+
+  feed: Activity Feed {style.fill: "#fff"}
+}

@@ -1,0 +1,54 @@
+# TEMPLATE: architecture.d2
+# Layered system architecture with grouped service containers
+
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+direction: right
+
+client: Client {shape: person}
+
+edge: Edge {
+  style.fill: "#f3e5f5"
+  cdn: CDN {shape: cloud}
+  lb: Load Balancer {shape: hexagon}
+  cdn -> lb
+}
+
+services: Services {
+  style.fill: "#e8f5e9"
+  api: API Gateway {shape: hexagon}
+  auth: Auth Service
+  users: User Service
+  orders: Order Service
+  notify: Notification Service {style.stroke-dash: 3}
+
+  api -> auth: verify token
+  api -> users
+  api -> orders
+  orders -> notify: async {style.stroke-dash: 3}
+}
+
+data: Data {
+  style.fill: "#fff8e1"
+  db: Postgres {shape: cylinder}
+  cache: Redis {shape: cylinder; style.fill: "#fff3e0"}
+  queue: Message Queue {shape: queue}
+}
+
+external: External {
+  style.fill: "#fce4ec"
+  email: Email API {shape: cloud}
+}
+
+client -> edge.cdn: HTTPS
+edge.lb -> services.api
+services.auth -> data.cache
+services.users -> data.db
+services.orders -> data.db
+services.orders -> data.queue
+services.notify -> data.queue: consume {style.stroke-dash: 3}
+services.notify -> external.email

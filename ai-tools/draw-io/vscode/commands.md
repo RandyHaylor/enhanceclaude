@@ -1,0 +1,3 @@
+- **Draw.io: Convert To...** — convert between `.drawio`, `.drawio.svg`, `.drawio.png`
+- **View: Reopen Editor With...** — toggle between visual editor and XML text editor
+- Themes in visual editor: atlas, Kennedy, min, dark (select from editor toolbar)

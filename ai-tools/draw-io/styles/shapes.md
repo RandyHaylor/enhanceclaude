@@ -1,0 +1,6 @@
+- **Rectangle:** `rounded=0;whiteSpace=wrap;html=1;`
+- **Rounded rect:** `rounded=1;whiteSpace=wrap;html=1;`
+- **Ellipse:** `ellipse;whiteSpace=wrap;html=1;`
+- **Diamond:** `rhombus;whiteSpace=wrap;html=1;`
+- **Cylinder:** `shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;`
+- **Swimlane:** `swimlane;startSize=30;html=1;fontFamily=Noto Sans JP;`

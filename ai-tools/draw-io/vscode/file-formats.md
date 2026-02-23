@@ -1,0 +1,4 @@
+- `.drawio` / `.dio` — plain XML, smallest size, best for version control diffs
+- `.drawio.svg` — embeds diagram data inside SVG; renders on GitHub with no export step
+- `.drawio.png` — embeds diagram data inside PNG; renders on GitHub with no export step
+- All formats are re-editable in the visual editor (diagram data is preserved)

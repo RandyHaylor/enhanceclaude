@@ -1,0 +1,11 @@
+{
+  "name": "Typographic Hierarchy",
+  "type": "skill",
+  "description": "Format documentation, READMEs, and structured text using header hierarchy where each level stands alone. Makes content scannable at multiple reading depths: glancers, skimmers, and readers.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["typography", "formatting", "documentation", "readability", "hierarchy"],
+  "readme": "readme.md",
+  "featured": false
+}

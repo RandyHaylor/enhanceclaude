@@ -1,0 +1,11 @@
+{
+  "name": "Shared Tmux Terminal",
+  "type": "skill",
+  "description": "Open a shared tmux terminal window that both Claude and the user can see and control simultaneously. Claude sends commands and reads output autonomously. The user can type directly, including for sudo passwords.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["terminal", "tmux", "shared-terminal", "sudo", "collaboration"],
+  "readme": "readme.md",
+  "featured": false
+}

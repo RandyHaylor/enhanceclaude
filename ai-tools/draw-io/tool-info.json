@@ -1,0 +1,11 @@
+{
+  "name": "Draw.io Diagram Generator",
+  "type": "skill",
+  "description": "Generate and edit draw.io diagrams (.drawio XML). Use for flowcharts, architecture diagrams, swimlane diagrams in .drawio format.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["diagramming", "draw.io", "flowchart", "architecture", "XML"],
+  "readme": "readme.md",
+  "featured": false
+}

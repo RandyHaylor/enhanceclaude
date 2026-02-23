@@ -1,0 +1,11 @@
+{
+  "name": "PDF to Text",
+  "type": "skill",
+  "description": "Convert PDF files to clean text. Handles both embedded-text PDFs and scanned/image PDFs via OCR.",
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "platforms": ["Claude Code"],
+  "tags": ["pdf", "text-extraction", "ocr", "document-processing", "conversion"],
+  "readme": "readme.md",
+  "featured": false
+}
