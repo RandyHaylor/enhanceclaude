@@ -8,7 +8,7 @@
 <!-- Google Fonts: Space Grotesk for headings -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
@@ -38,6 +38,7 @@
     --skill-accent: #facc15;
     --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-display: "Space Grotesk", var(--font-body);
+    --font-title: "Inter", var(--font-body);
   }
 
   *, *::before, *::after {
@@ -250,6 +251,14 @@
     top: 5.5rem;
   }
 
+  .sidebar-showing {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 0 0.5rem;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
   .sidebar-heading {
     font-size: 0.75rem;
     font-weight: 700;
@@ -304,15 +313,73 @@
     font-weight: 600;
   }
 
+  /* -- Tag filter panel (sidebar) -- */
+  .tag-filter-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    padding: 0 0.25rem;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .tag-filter-panel::-webkit-scrollbar { width: 4px; }
+  .tag-filter-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .tag-filter-chip {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.675rem;
+    background: rgba(48, 54, 61, 0.3);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .tag-filter-chip:hover {
+    color: #fff;
+    border-color: var(--text-muted);
+  }
+
+  .tag-filter-chip.is-active {
+    background: rgba(19, 127, 236, 0.15);
+    color: var(--primary);
+    border-color: rgba(19, 127, 236, 0.4);
+  }
+
+  .tag-clear-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .tag-clear-btn:hover { color: #fff; }
+
   /* -- Mobile sidebar -- */
   .mobile-filters {
     display: none;
-    overflow-x: auto;
+    flex-direction: column;
     gap: 0.5rem;
     padding-bottom: 1rem;
-    scrollbar-width: none;
   }
-  .mobile-filters::-webkit-scrollbar { display: none; }
+
+  .mobile-filters-row {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    align-items: center;
+  }
+  .mobile-filters-row::-webkit-scrollbar { display: none; }
 
   .mobile-filter-btn {
     white-space: nowrap;
@@ -330,6 +397,27 @@
     background: var(--primary);
     color: #fff;
     border-color: var(--primary);
+  }
+
+  /* -- Mobile tag toggle button -- */
+  .mobile-tag-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .mobile-tag-toggle.has-active {
+    background: rgba(19, 127, 236, 0.15);
+    color: var(--primary);
+    border-color: rgba(19, 127, 236, 0.4);
+  }
+
+  /* -- Mobile tag panel (inline, pushes content down) -- */
+  .mobile-tag-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    padding: 0.5rem 0;
   }
 
   /* -- Main content area -- */
@@ -360,6 +448,25 @@
     font-size: 0.875rem;
     font-weight: 600;
     color: #fff;
+  }
+
+  .footer-contact {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-email {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .footer-email:hover {
+    text-decoration: underline;
   }
 
   .footer-disclaimer {
@@ -466,29 +573,6 @@
     max-width: 36rem;
   }
 
-  /* -- Stats Bar -- */
-  .stats-bar {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .stats-bar h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #fff;
-  }
-
-  .stats-bar-count {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    margin-left: 0.5rem;
-  }
 
   /* -- Tool Cards -- */
   .cards-container {
@@ -501,13 +585,6 @@
     border-radius: 8px;
     border: 1px solid var(--border);
     background: var(--bg-surface);
-    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
-  }
-
-  .tool-card:hover {
-    border-color: rgba(19, 127, 236, 0.5);
-    background: var(--bg-surface-hover);
-    box-shadow: 0 4px 24px rgba(19, 127, 236, 0.05);
   }
 
   .card-inner {
@@ -560,15 +637,14 @@
   }
 
   .card-name {
+    font-family: var(--font-title);
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 600;
     color: #fff;
     transition: color 0.2s;
+    letter-spacing: -0.01em;
   }
 
-  .tool-card:hover .card-name {
-    color: var(--primary);
-  }
 
   .card-version {
     padding: 0.125rem 0.5rem;
@@ -659,25 +735,74 @@
     text-transform: capitalize;
   }
 
-  .card-install-btn {
+  .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex-shrink: 0;
+  }
+
+  /* Shared base for all 3 card action buttons */
+  .card-action-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 0.85rem;
+    justify-content: center;
+    height: 2rem;
     border-radius: 6px;
     font-size: 0.8125rem;
     font-weight: 500;
-    background: rgba(19, 127, 236, 0.1);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: none;
+    transition: all 0.2s;
+  }
+
+  .card-action-btn .material-symbols-outlined { font-size: 16px; }
+
+  .card-action-btn:hover {
     color: var(--primary);
-    border: 1px solid rgba(19, 127, 236, 0.2);
-    transition: background 0.2s;
+    border-color: rgba(19, 127, 236, 0.3);
+    background: rgba(19, 127, 236, 0.1);
+  }
+
+  /* Icon-only buttons (share, expand) */
+  .card-share-btn,
+  .card-expand-btn {
+    width: 2rem;
+  }
+
+  .card-share-btn.is-copied {
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.3);
+    background: rgba(34, 197, 94, 0.1);
+  }
+
+  .card-expand-btn .material-symbols-outlined {
+    transition: transform 0.2s;
+  }
+
+  .tool-card.is-expanded .card-expand-btn .material-symbols-outlined {
+    transform: rotate(180deg);
+  }
+
+  .tool-card.is-expanded .card-expand-btn {
+    color: var(--primary);
+    border-color: rgba(19, 127, 236, 0.3);
+    background: rgba(19, 127, 236, 0.1);
+  }
+
+  /* Install button (icon + text) */
+  .card-install-btn {
+    gap: 0.375rem;
+    padding: 0 0.75rem;
+    color: var(--primary);
+    border-color: rgba(19, 127, 236, 0.2);
+    background: rgba(19, 127, 236, 0.1);
   }
 
   .card-install-btn:hover {
     background: rgba(19, 127, 236, 0.2);
   }
-
-  .card-install-btn .material-symbols-outlined { font-size: 18px; }
 
   .card-custom-note {
     margin-top: 0.5rem;
@@ -694,6 +819,68 @@
 
   .card-custom-note .material-symbols-outlined { font-size: 14px; flex-shrink: 0; margin-top: 0.1rem; }
 
+  /* -- Expanded Detail Panel -- */
+  .tool-detail-panel {
+    border-top: 1px solid var(--border);
+    background: var(--bg-page);
+    margin: 0.75rem -1.5rem -1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 0 7px 7px;
+    animation: detailFadeIn 0.2s ease;
+  }
+
+  @keyframes detailFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .tool-card.is-expanded {
+    border-color: rgba(19, 127, 236, 0.3);
+  }
+
+  .detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .detail-title {
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .detail-close-btn {
+    padding: 0.35rem;
+    border-radius: 6px;
+    color: var(--text-muted);
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .detail-close-btn:hover { color: #fff; background: var(--border); }
+
+  .detail-readme {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: rgba(230, 237, 243, 0.85);
+  }
+
+  .detail-readme h1 { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 1rem 0 0.5rem; }
+  .detail-readme h2 { font-size: 0.95rem; font-weight: 600; color: var(--primary); margin: 1rem 0 0.4rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+  .detail-readme p { margin-bottom: 0.6rem; }
+  .detail-readme hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+  .detail-readme em { color: var(--text-muted); }
+  .detail-readme strong { color: #fff; }
+  .detail-readme a { color: var(--primary); text-decoration: underline; }
+  .detail-readme code { font-family: monospace; font-size: 0.8rem; background: var(--bg-surface); padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid var(--border); }
+  .detail-readme ul, .detail-readme ol { margin: 0.4rem 0 0.6rem 1.25rem; }
+  .detail-readme li { margin-bottom: 0.25rem; }
+
+
   /* -- Install Dialog -- */
   .install-dialog {
     border: 1px solid var(--border);
@@ -701,9 +888,13 @@
     background: var(--bg-surface);
     color: var(--text-main);
     padding: 0;
-    max-width: 600px;
+    max-width: 900px;
     width: calc(100% - 2rem);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
   }
 
   .install-dialog::backdrop {
@@ -1015,6 +1206,9 @@
 
     <!-- Actions -->
     <div class="header-actions">
+      <a href="mailto:info@enhanceclaude.com" title="Contact">
+        <span class="material-symbols-outlined" style="font-size:20px">mail</span>
+      </a>
       <a href="https://github.com/RandyHaylor/enhanceclaude" title="View on GitHub" target="_blank" rel="noopener noreferrer">
         <span class="material-symbols-outlined" style="font-size:20px">code</span>
       </a>
@@ -1030,6 +1224,7 @@
   <!-- SIDEBAR (desktop) -->
   <aside class="sidebar">
     <div class="sidebar-sticky">
+      <div class="sidebar-showing" id="showing-count">Showing 0 resources</div>
       <h3 class="sidebar-heading">Browse Library</h3>
       <nav>
         <ul class="sidebar-nav" id="sidebar-nav">
@@ -1056,27 +1251,35 @@
           </li>
         </ul>
       </nav>
+      <h3 class="sidebar-heading" style="margin-top:1.5rem">Filter by Tag</h3>
+      <div class="tag-filter-panel" id="tag-filter-panel">
+        <!-- Populated by JS -->
+      </div>
+      <button class="tag-clear-btn is-hidden" id="tag-clear-btn">
+        <span class="material-symbols-outlined" style="font-size:14px">close</span>
+        Clear tags
+      </button>
     </div>
   </aside>
 
   <!-- MOBILE FILTERS -->
   <div class="mobile-filters" id="mobile-filters">
-    <button class="mobile-filter-btn is-active" data-filter="all">All</button>
-    <button class="mobile-filter-btn" data-filter="agent">Agents</button>
-    <button class="mobile-filter-btn" data-filter="skill">Skills</button>
+    <div class="mobile-filters-row">
+      <button class="mobile-filter-btn is-active" data-filter="all">All</button>
+      <button class="mobile-filter-btn" data-filter="agent">Agents</button>
+      <button class="mobile-filter-btn" data-filter="skill">Skills</button>
+      <button class="mobile-filter-btn mobile-tag-toggle" id="mobile-tag-toggle">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle">label</span>
+        Tags
+      </button>
+    </div>
+    <div class="mobile-tag-panel is-hidden" id="mobile-tag-menu">
+      <!-- Populated by JS -->
+    </div>
   </div>
 
   <!-- MAIN CONTENT -->
   <main class="main-content">
-    <!-- Hero Banner -->
-    <!-- Stats Bar -->
-    <div class="stats-bar">
-      <div style="display:flex;align-items:baseline;gap:0.5rem">
-        <h3>Latest Updates</h3>
-        <span class="stats-bar-count" id="showing-count">Showing 0 resources</span>
-      </div>
-    </div>
-
     <!-- Loading Bar -->
     <div class="loading-bar" id="loading-bar">
       <div class="loading-bar-text">gathering ai tools...</div>
@@ -1104,7 +1307,11 @@
      ============================================================ -->
 <footer class="site-footer">
   <div class="footer-inner">
-    <span class="footer-brand">enhanceclaude.com &bull; 2025</span>
+    <div class="footer-contact">
+      <span class="material-symbols-outlined" style="font-size:18px;color:var(--primary)">mail</span>
+      <span>To inquire about this site or find out about consulting services, contact <a href="mailto:info@enhanceclaude.com" class="footer-email">info@enhanceclaude.com</a></span>
+    </div>
+    <span class="footer-brand">enhanceclaude.com</span>
     <p class="footer-disclaimer">
       enhanceclaude.com is an independent resource. Claude&trade; is a trademark of Anthropic, PBC.
       This site is not affiliated with or endorsed by Anthropic.
@@ -1138,6 +1345,7 @@ const GITHUB_OWNER = 'RandyHaylor';
 const GITHUB_REPO = 'enhanceclaude';
 const GITHUB_BRANCH = 'main';
 const TOOLS_DIR = 'ai-tools';
+const SITE_BASE_URL = 'https://enhanceclaude.com';
 const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${TOOLS_DIR}`;
 const GITHUB_RAW_URL = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
 const INSTALL_INSTRUCTIONS_PATH = `${GITHUB_RAW_URL}/site-html/installation-instructions.json`;
@@ -1247,7 +1455,7 @@ function renderToolCard(tool) {
        </div>`
     : '';
 
-  return `<article class="tool-card" data-type="${esc(tool.type)}" data-name="${esc(tool.name)}" data-tags="${esc((tool.tags || []).join(' '))}">
+  return `<article class="tool-card" data-type="${esc(tool.type)}" data-name="${esc(tool.name)}" data-folder="${esc(tool.folder)}" data-tags="${esc((tool.tags || []).join(' '))}">
     <div class="card-inner">
       <div class="card-top">
         <div class="card-top-left">
@@ -1270,10 +1478,18 @@ function renderToolCard(tool) {
             </div>
           </div>
         </div>
-        <button class="card-install-btn" data-folder="${esc(tool.folder)}">
-          <span class="material-symbols-outlined">download</span>
-          Install
-        </button>
+        <div class="card-actions">
+          <button class="card-action-btn card-share-btn" data-folder="${esc(tool.folder)}" title="Share via link">
+            <span class="material-symbols-outlined">share</span>
+          </button>
+          <button class="card-action-btn card-install-btn" data-folder="${esc(tool.folder)}">
+            <span class="material-symbols-outlined">download</span>
+            Install
+          </button>
+          <button class="card-action-btn card-expand-btn" data-folder="${esc(tool.folder)}" title="More details">
+            <span class="material-symbols-outlined">expand_more</span>
+          </button>
+        </div>
       </div>
       <div class="card-description">${esc(tool.description)}</div>
       <div class="card-footer-row">
@@ -1298,9 +1514,10 @@ function renderAllCards(tools) {
 
 let currentTypeFilter = 'all';
 let currentSearchQuery = '';
+let activeTags = new Set();
 let allTools = [];
 
-/** Apply both type filter and search filter together, update counts */
+/** Apply type filter, search filter, and tag filter together */
 function filterCards() {
   const container = document.getElementById('cards-container');
   const cards = container.querySelectorAll('.tool-card');
@@ -1315,8 +1532,9 @@ function filterCards() {
 
     const matchesType = (currentTypeFilter === 'all') || (type === currentTypeFilter);
     const matchesSearch = !query || name.includes(query) || tags.includes(query) || desc.includes(query);
+    const matchesTags = activeTags.size === 0 || [...activeTags].every(t => tags.includes(t.toLowerCase()));
 
-    if (matchesType && matchesSearch) {
+    if (matchesType && matchesSearch && matchesTags) {
       card.classList.remove('is-hidden');
       visibleCount++;
     } else {
@@ -1324,11 +1542,16 @@ function filterCards() {
     }
   });
 
-  // Update "Showing X resources" count
   document.getElementById('showing-count').textContent = `Showing ${visibleCount} resource${visibleCount !== 1 ? 's' : ''}`;
-
-  // Show/hide no-results message
   document.getElementById('no-results').classList.toggle('is-hidden', visibleCount > 0);
+
+  // Show/hide clear tags button
+  const clearBtn = document.getElementById('tag-clear-btn');
+  if (clearBtn) clearBtn.classList.toggle('is-hidden', activeTags.size === 0);
+
+  // Update mobile tag toggle appearance
+  const mobileToggle = document.getElementById('mobile-tag-toggle');
+  if (mobileToggle) mobileToggle.classList.toggle('has-active', activeTags.size > 0);
 }
 
 /** Update sidebar counts based on loaded data */
@@ -1342,29 +1565,66 @@ function updateCounts() {
   document.getElementById('count-skill').textContent = skills;
 }
 
+/** Build tag filter chips from loaded tools */
+function buildTagFilters() {
+  const tagSet = new Set();
+  allTools.forEach(t => (t.tags || []).forEach(tag => tagSet.add(tag)));
+  const sortedTags = [...tagSet].sort();
+
+  // Desktop sidebar panel
+  const panel = document.getElementById('tag-filter-panel');
+  panel.innerHTML = sortedTags.map(tag =>
+    `<button class="tag-filter-chip" data-tag="${esc(tag)}">${esc(tag)}</button>`
+  ).join('');
+
+  // Mobile dropdown
+  const mobileMenu = document.getElementById('mobile-tag-menu');
+  if (mobileMenu) {
+    mobileMenu.innerHTML = sortedTags.map(tag =>
+      `<button class="tag-filter-chip" data-tag="${esc(tag)}">${esc(tag)}</button>`
+    ).join('');
+  }
+}
+
+/** Toggle a tag in the active set and sync all chip states */
+function toggleTag(tag) {
+  if (activeTags.has(tag)) {
+    activeTags.delete(tag);
+  } else {
+    activeTags.add(tag);
+  }
+  syncTagChips();
+  filterCards();
+}
+
+/** Sync all tag chip active states across desktop and mobile */
+function syncTagChips() {
+  document.querySelectorAll('.tag-filter-chip').forEach(chip => {
+    chip.classList.toggle('is-active', activeTags.has(chip.dataset.tag));
+  });
+}
+
 /** Wire sidebar filter buttons */
 function wireFilters() {
-  // Desktop sidebar
+  // Desktop sidebar type buttons
   const sidebarBtns = document.querySelectorAll('#sidebar-nav .sidebar-nav-btn');
   sidebarBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       sidebarBtns.forEach(b => b.classList.remove('is-active'));
       btn.classList.add('is-active');
       currentTypeFilter = btn.getAttribute('data-filter');
-      // Sync mobile buttons
       syncMobileFilters();
       filterCards();
     });
   });
 
-  // Mobile pill buttons
-  const mobileBtns = document.querySelectorAll('#mobile-filters .mobile-filter-btn');
+  // Mobile type pill buttons (exclude tag toggle)
+  const mobileBtns = document.querySelectorAll('#mobile-filters .mobile-filter-btn:not(.mobile-tag-toggle)');
   mobileBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      mobileBtns.forEach(b => b.classList.remove('is-active'));
+      document.querySelectorAll('#mobile-filters .mobile-filter-btn:not(.mobile-tag-toggle)').forEach(b => b.classList.remove('is-active'));
       btn.classList.add('is-active');
       currentTypeFilter = btn.getAttribute('data-filter');
-      // Sync desktop sidebar
       syncDesktopFilters();
       filterCards();
     });
@@ -1376,10 +1636,51 @@ function wireFilters() {
     currentSearchQuery = searchInput.value;
     filterCards();
   });
+
+  // Tag chip clicks (delegated on both panels)
+  document.getElementById('tag-filter-panel').addEventListener('click', (e) => {
+    const chip = e.target.closest('.tag-filter-chip');
+    if (chip) toggleTag(chip.dataset.tag);
+  });
+
+  const mobileMenu = document.getElementById('mobile-tag-menu');
+  if (mobileMenu) {
+    mobileMenu.addEventListener('click', (e) => {
+      const chip = e.target.closest('.tag-filter-chip');
+      if (chip) toggleTag(chip.dataset.tag);
+    });
+  }
+
+  // Clear tags button
+  document.getElementById('tag-clear-btn').addEventListener('click', () => {
+    activeTags.clear();
+    syncTagChips();
+    filterCards();
+  });
+
+  // Mobile tag dropdown toggle
+  const mobileToggle = document.getElementById('mobile-tag-toggle');
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const menu = document.getElementById('mobile-tag-menu');
+      menu.classList.toggle('is-hidden');
+    });
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      const menu = document.getElementById('mobile-tag-menu');
+      if (menu && !menu.classList.contains('is-hidden')) {
+        menu.classList.add('is-hidden');
+      }
+    });
+    if (mobileMenu) {
+      mobileMenu.addEventListener('click', (e) => e.stopPropagation());
+    }
+  }
 }
 
 function syncMobileFilters() {
-  document.querySelectorAll('#mobile-filters .mobile-filter-btn').forEach(btn => {
+  document.querySelectorAll('#mobile-filters .mobile-filter-btn:not(.mobile-tag-toggle)').forEach(btn => {
     btn.classList.toggle('is-active', btn.getAttribute('data-filter') === currentTypeFilter);
   });
 }
@@ -1391,7 +1692,208 @@ function syncDesktopFilters() {
 }
 
 /* ============================================================
-   Section 5: Install Overlay
+   Section 5: Tool Detail Expansion
+   ============================================================ */
+
+/** Convert basic markdown to HTML */
+function simpleMarkdownToHtml(md) {
+  /** Apply inline formatting to a line */
+  function inlineFmt(line) {
+    let html = esc(line);
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+    return html;
+  }
+
+  const lines = md.split('\n');
+  const out = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i].trimEnd();
+
+    // Skip blank lines
+    if (!line.trim()) { i++; continue; }
+
+    // Headings
+    if (line.startsWith('### ')) { out.push(`<h2>${inlineFmt(line.slice(4))}</h2>`); i++; continue; }
+    if (line.startsWith('## ')) { out.push(`<h2>${inlineFmt(line.slice(3))}</h2>`); i++; continue; }
+    if (line.startsWith('# ')) { out.push(`<h1>${inlineFmt(line.slice(2))}</h1>`); i++; continue; }
+
+    // Horizontal rule
+    if (/^---+$/.test(line.trim())) { out.push('<hr/>'); i++; continue; }
+
+    // Bullet list
+    if (/^[\-\*]\s/.test(line.trim())) {
+      let items = [];
+      while (i < lines.length && /^[\-\*]\s/.test(lines[i].trim())) {
+        items.push(`<li>${inlineFmt(lines[i].trim().slice(2))}</li>`);
+        i++;
+      }
+      out.push(`<ul>${items.join('')}</ul>`);
+      continue;
+    }
+
+    // Numbered list
+    if (/^\d+\.\s/.test(line.trim())) {
+      let items = [];
+      while (i < lines.length && /^\d+\.\s/.test(lines[i].trim())) {
+        items.push(`<li>${inlineFmt(lines[i].trim().replace(/^\d+\.\s/, ''))}</li>`);
+        i++;
+      }
+      out.push(`<ol>${items.join('')}</ol>`);
+      continue;
+    }
+
+    // Paragraph (collect consecutive non-blank, non-special lines)
+    let para = [];
+    while (i < lines.length && lines[i].trim() && !/^[#\-\*]/.test(lines[i].trim()) && !/^\d+\.\s/.test(lines[i].trim()) && !/^---+$/.test(lines[i].trim())) {
+      para.push(inlineFmt(lines[i].trim()));
+      i++;
+    }
+    if (para.length) out.push(`<p>${para.join(' ')}</p>`);
+  }
+
+  return out.join('\n');
+}
+
+/** Fetch the readme.md for a tool from GitHub raw */
+async function fetchToolReadme(folder, readmeFile) {
+  const url = `${GITHUB_RAW_URL}/${TOOLS_DIR}/${folder}/${readmeFile || 'readme.md'}`;
+  try {
+    const resp = await fetch(url);
+    if (!resp.ok) return null;
+    return await resp.text();
+  } catch {
+    return null;
+  }
+}
+
+/** Collapse any currently expanded tool card */
+function collapseExpandedCard() {
+  const expanded = document.querySelector('.tool-card.is-expanded');
+  if (expanded) {
+    expanded.classList.remove('is-expanded');
+    const panel = expanded.querySelector('.tool-detail-panel');
+    if (panel) panel.remove();
+  }
+  // Clear URL param
+  if (window.history.replaceState) {
+    const url = new URL(window.location);
+    url.searchParams.delete('toolName');
+    window.history.replaceState({}, '', url);
+  }
+}
+
+/** Expand a tool card to show the detail panel */
+async function expandToolCard(folder) {
+  const tool = allTools.find(t => t.folder === folder);
+  if (!tool) return;
+
+  // Collapse any existing expanded card
+  collapseExpandedCard();
+
+  const cardEl = document.querySelector(`.tool-card[data-folder="${folder}"]`);
+  if (!cardEl) return;
+
+  cardEl.classList.add('is-expanded');
+
+  // Build the detail panel
+  const panel = document.createElement('div');
+  panel.className = 'tool-detail-panel';
+  panel.innerHTML = `
+    <div class="detail-header">
+      <span class="detail-title">Loading...</span>
+      <button class="detail-close-btn" title="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="detail-readme"></div>
+  `;
+
+  cardEl.querySelector('.card-inner').appendChild(panel);
+
+  // Wire close button
+  panel.querySelector('.detail-close-btn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    collapseExpandedCard();
+  });
+
+  // Update URL
+  if (window.history.replaceState) {
+    const url = new URL(window.location);
+    url.searchParams.set('toolName', folder);
+    window.history.replaceState({}, '', url);
+  }
+
+  // Scroll into view
+  cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // Fetch and render readme
+  const readmeText = await fetchToolReadme(folder, tool.readme);
+  const readmeContainer = panel.querySelector('.detail-readme');
+
+  if (readmeText) {
+    readmeContainer.innerHTML = simpleMarkdownToHtml(readmeText);
+  } else {
+    readmeContainer.innerHTML = `<p style="color:var(--text-muted)">No readme available.</p>`;
+  }
+
+  // Update header text
+  panel.querySelector('.detail-title').textContent = tool.name;
+}
+
+/** Wire card click to expand (but not on install/share button clicks) */
+function wireCardExpansion() {
+  document.getElementById('cards-container').addEventListener('click', (e) => {
+    // Handle share button
+    const shareBtn = e.target.closest('.card-share-btn');
+    if (shareBtn) {
+      e.stopPropagation();
+      const folder = shareBtn.dataset.folder;
+      const shareUrl = `${SITE_BASE_URL}?toolName=${encodeURIComponent(folder)}`;
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        shareBtn.classList.add('is-copied');
+        const icon = shareBtn.querySelector('.material-symbols-outlined');
+        if (icon) icon.textContent = 'check';
+        setTimeout(() => {
+          shareBtn.classList.remove('is-copied');
+          if (icon) icon.textContent = 'share';
+        }, 1500);
+      });
+      return;
+    }
+
+    // Handle expand caret button
+    const expandBtn = e.target.closest('.card-expand-btn');
+    if (expandBtn) {
+      e.stopPropagation();
+      const card = expandBtn.closest('.tool-card');
+      if (!card) return;
+      if (card.classList.contains('is-expanded')) {
+        collapseExpandedCard();
+      } else {
+        expandToolCard(card.dataset.folder);
+      }
+      return;
+    }
+
+  });
+}
+
+/** Check URL params and auto-expand if ?toolName=xxx is present */
+function handleUrlToolParam() {
+  const params = new URLSearchParams(window.location.search);
+  const toolName = params.get('toolName');
+  if (toolName) {
+    expandToolCard(toolName);
+  }
+}
+
+/* ============================================================
+   Section 6: Install Overlay
    ============================================================ */
 
 let installInstructions = null;
@@ -1527,6 +2029,15 @@ function showInstallDialog(tool) {
   }
 
   bodyEl.innerHTML = html;
+
+  // Align dialog with the main content / cards area
+  const cardsEl = document.getElementById('cards-container');
+  if (cardsEl) {
+    const rect = cardsEl.getBoundingClientRect();
+    dialog.style.left = rect.left + 'px';
+    dialog.style.width = rect.width + 'px';
+  }
+
   dialog.showModal();
 }
 
@@ -1554,7 +2065,7 @@ function wireInstallDialog() {
 }
 
 /* ============================================================
-   Section 6: Init
+   Section 7: Init
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -1578,11 +2089,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render
     renderAllCards(allTools);
     updateCounts();
+    buildTagFilters();
     filterCards();
 
     // Wire interactions
     wireFilters();
     wireInstallDialog();
+    wireCardExpansion();
+
+    // Auto-expand if ?toolName=xxx is in the URL
+    handleUrlToolParam();
   } catch (err) {
     console.error('Failed to load tools from GitHub:', err);
     updateLoadingBar(0, 'failed to load tools — check console');
