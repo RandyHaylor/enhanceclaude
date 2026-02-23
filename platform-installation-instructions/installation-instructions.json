@@ -286,12 +286,12 @@
       {
         "type": "mcp",
         "scope": "global",
-        "path": "~/.config/Code/User/settings.json",
-        "windowsPath": "%APPDATA%\\Code\\User\\settings.json",
+        "path": "~/.config/Code/User/mcp.json",
+        "windowsPath": "%APPDATA%\\Code\\User\\mcp.json",
         "files": [
-          "settings.json"
+          "mcp.json"
         ],
-        "example": "{\n  \"mcp\": {\n    \"servers\": {\n      \"my-mcp-server\": {\n        \"type\": \"stdio\",\n        \"command\": \"npx\",\n        \"args\": [\"-y\", \"@my-org/my-mcp-server\"]\n      }\n    }\n  }\n}"
+        "example": "{\n  \"servers\": {\n    \"my-mcp-server\": {\n      \"type\": \"stdio\",\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@my-org/my-mcp-server\"]\n    }\n  }\n}"
       }
     ]
   },
@@ -301,7 +301,7 @@
       {
         "type": "rule",
         "scope": "global",
-        "path": "Cursor Settings UI > Rules",
+        "path": "Cursor Settings > General > Rules for AI",
         "files": [],
         "example": "Always use TypeScript with strict mode.\nPrefer functional components in React.\nUse 2-space indentation."
       },
@@ -325,22 +325,13 @@
         "example": "# Project Instructions for AI Agents\n## Build Commands\n- Install: `npm install`\n- Test: `npm test`"
       },
       {
-        "type": "rule",
+        "type": "rule (deprecated)",
         "scope": "project",
         "path": ".cursorrules",
         "files": [
           ".cursorrules"
         ],
         "example": "Use TypeScript strict mode.\nPrefer const over let."
-      },
-      {
-        "type": "agent-mode",
-        "scope": "project",
-        "path": ".cursor/modes.json",
-        "files": [
-          "modes.json"
-        ],
-        "example": "[{\"name\": \"Code Reviewer\",\n  \"tools\": [\"codebase_search\", \"read_file\"],\n  \"instructions\": \"Review code for bugs.\"}]"
       },
       {
         "type": "mcp",
@@ -426,21 +417,21 @@
       {
         "type": "mcp",
         "scope": "project",
-        "path": ".gemini/extensions/<name>/gemini-extension.json",
+        "path": ".gemini/settings.json",
         "files": [
-          "gemini-extension.json"
+          "settings.json"
         ],
-        "example": "{\n  \"name\": \"my-extension\",\n  \"version\": \"1.0.0\",\n  \"description\": \"My custom tools\",\n  \"mcpServers\": {\n    \"my-server\": {\n      \"command\": \"node\",\n      \"args\": [\"${extensionPath}${/}server.js\"]\n    }\n  }\n}"
+        "example": "{\n  \"mcpServers\": {\n    \"my-server\": {\n      \"command\": \"node\",\n      \"args\": [\"server.js\"]\n    }\n  }\n}"
       },
       {
         "type": "mcp",
         "scope": "global",
-        "path": "~/.gemini/extensions/<name>/gemini-extension.json",
-        "windowsPath": "%USERPROFILE%\\.gemini\\extensions\\<name>\\gemini-extension.json",
+        "path": "~/.gemini/settings.json",
+        "windowsPath": "%USERPROFILE%\\.gemini\\settings.json",
         "files": [
-          "gemini-extension.json"
+          "settings.json"
         ],
-        "example": "{\n  \"name\": \"my-extension\",\n  \"version\": \"1.0.0\",\n  \"description\": \"My custom tools\",\n  \"mcpServers\": {\n    \"my-server\": {\n      \"command\": \"node\",\n      \"args\": [\"${extensionPath}${/}server.js\"]\n    }\n  }\n}"
+        "example": "{\n  \"mcpServers\": {\n    \"my-server\": {\n      \"command\": \"node\",\n      \"args\": [\"server.js\"]\n    }\n  }\n}"
       },
       {
         "type": "command",
