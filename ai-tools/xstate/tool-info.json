@@ -1,0 +1,25 @@
+{
+  "name": "XState v5 State Machine Development",
+  "type": "skill",
+  "description": "Comprehensive XState v5 reference and workflow for designing, implementing, and testing state machines. Includes a design-first methodology where user stories validate the state chart before any code is written.",
+  "os": ["any"],
+  "version": "1.0.0",
+  "author": "EnhanceClaude",
+  "tags": ["xstate", "state-machine", "statechart", "finite-state", "typescript", "tdd", "user-stories"],
+  "overview": "This skill provides a complete XState v5 quick reference covering machine definitions, states, events, context, actions, actors, guards, transitions, and TypeScript typing. It enforces a design-first workflow: list events and states, model the statechart visually, then validate the design by walking concrete user stories through it — user stories are the tests, the statechart is the implementation, the walkthrough is the test run. No code is written until every story passes against the design. Includes file organization conventions, callback actors for real-time listeners (e.g. Firestore onSnapshot), provide()-based mocking for tests, and a full API reference for deep lookups.",
+  "promptSuggestions": [
+    "Design a state machine for a multiplayer game lobby — walk me through the design workflow with user stories before writing any code.",
+    "I need an XState machine for a multi-step form wizard with validation guards. Start with the statechart design and user story walkthrough.",
+    "Help me model a real-time subscription flow using XState callback actors and Firestore onSnapshot.",
+    "Write tests for this XState machine using provide() to mock the async actors."
+  ],
+  "applications": [
+    "State machine design and validation before implementation",
+    "User-story-driven statechart testing (TDD for state machines)",
+    "Complex UI flow management (forms, wizards, games)",
+    "Real-time subscription handling with callback actors",
+    "Multiplayer and collaborative app state management",
+    "TypeScript-typed state machines with full inference"
+  ],
+  "featured": false
+}
