@@ -5,7 +5,7 @@
   "os": ["linux", "macos", "windows"],
   "version": "1.0.0",
   "author": "EnhanceClaude",
-  "tags": ["icloud", "photos", "backup", "sync", "cli", "icloudpd"],
+  "tags": ["icloud", "photos", "backup", "sync", "cli", "icloudpd", "macos"],
   "overview": "Reference skill for icloudpd v1.32.2, an open-source Python CLI that downloads and syncs iCloud Photos to local storage. Covers three sync modes (copy, sync, move), key flags, authentication including 2FA and headless/NAS setups, multi-platform install options, and common recipes. Includes gotchas such as the 400 error on first run and ADP incompatibility.",
   "customInstructions": "Install via pip, npx, Docker, Snap, or binary. Not compatible with Apple Advanced Data Protection (ADP) — must be disabled. Stores auth tokens in ~/.pyicloud by default.",
   "promptSuggestions": [
