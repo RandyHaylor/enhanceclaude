@@ -1,4 +1,4 @@
-# AFK Mode
+# Claude Code - AFK Mode
 
 **Type:** skill | **Version:** 1.0.0 | **OS:** linux, macos, windows
 
@@ -24,6 +24,9 @@ A self-contained skill folder that installs globally at ~/.claude/skills/afk-mod
 - Focus/deep-work sessions where dialog interruptions are unwanted
 - Screen-sharing or presentation scenarios where surprise dialogs are disruptive
 - Debugging sessions where the user wants every elevation surfaced as a structured agent message instead of a modal
+
+## Additional Requirements
+Requires Claude Code CLI (not the desktop/web app) — uses PermissionRequest hooks registered via ~/.claude/settings.json.
 
 ---
 *Part of the [EnhanceClaude](https://enhanceclaude.com) AI tools collection.*
