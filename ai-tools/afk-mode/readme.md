@@ -2,7 +2,7 @@
 
 **Type:** skill | **Version:** 1.0.0 | **OS:** linux, macos, windows
 
-User-invocable skill + PermissionRequest auto-deny hook for Claude Code. Lets the user flip a project into an 'away' state so tool calls that would normally stall on a permission dialog get auto-denied with a directive message instead — the agent continues what it can without silently hanging.
+Toggle afk mode by simply typing /afk - progress blocking elevation prompts will be auto-denied and agent will be told to continue! User-invocable skill + PermissionRequest auto-deny hook for Claude Code. Lets the user flip a project into an 'away' state so tool calls that would normally stall on a permission dialog get auto-denied with a directive message instead — the agent continues what it can without silently hanging.
 
 ## Tags
 claude-code, hook, permission-request, away-mode, automation, agent-workflow
