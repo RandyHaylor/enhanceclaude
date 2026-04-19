@@ -1,10 +1,11 @@
 {
-  "name": "AFK Mode",
+  "name": "Claude Code - AFK Mode",
   "type": "skill",
   "description": "Toggle afk mode by simply typing /afk - progress blocking elevation prompts will be auto-denied and agent will be told to continue! User-invocable skill + PermissionRequest auto-deny hook for Claude Code. Lets the user flip a project into an 'away' state so tool calls that would normally stall on a permission dialog get auto-denied with a directive message instead — the agent continues what it can without silently hanging.",
   "os": ["linux", "macos", "windows"],
   "version": "1.0.0",
   "author": "EnhanceClaude",
+  "customInstructions": "Requires Claude Code CLI (not the desktop/web app) — uses PermissionRequest hooks registered via ~/.claude/settings.json.",
   "tags": ["claude-code", "hook", "permission-request", "away-mode", "automation", "agent-workflow"],
   "overview": "A self-contained skill folder that installs globally at ~/.claude/skills/afk-mode/. A PermissionRequest hook script auto-denies tool calls that would trigger a user-facing permission dialog, but only in projects that have opted in via a local config file. When a call is denied, the agent receives a structured message telling it to continue within existing permissions, not mark steps blocked/done, not invent new work, and summarize when stuck. Includes `/afk-mode` toggle semantics (auto-installs and enables on first use), per-project scope (no accidental cross-project blocking), cross-platform invocation (no symlinks or PATH munging), and idempotent hook install/uninstall scripts that edit ~/.claude/settings.json safely. The hook honors merged permissions.allow rules from user/project/local settings so approved operations still pass through.",
   "promptSuggestions": [
