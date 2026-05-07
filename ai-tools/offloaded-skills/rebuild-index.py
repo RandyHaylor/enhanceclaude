@@ -10,7 +10,7 @@ INDEX_PATH = OFFLOADED_DIR / "index.md"
 
 def extract_frontmatter(skill_md: Path) -> dict:
     """Extract name and description from SKILL.md YAML frontmatter."""
-    text = skill_md.read_text()
+    text = skill_md.read_text(encoding="utf-8")
     match = re.match(r"^---\s*\n(.*?)\n---", text, re.DOTALL)
     if not match:
         return {}
@@ -54,7 +54,7 @@ def main():
                     {
                         "name": info.get("name", skill_dir.name),
                         "description": info.get("description", ""),
-                        "path": str(skill_md),
+                        "path": skill_md.as_posix(),
                     }
                 )
 
@@ -70,7 +70,7 @@ def main():
             lines.append(f"  {s['description']}")
         lines.append("")
 
-    INDEX_PATH.write_text("\n".join(lines))
+    INDEX_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Wrote {INDEX_PATH} with {len(skills)} skills.")
 
 
