@@ -21,51 +21,88 @@ triggers:
 
 Single terminal window shared by Claude and user. Claude drives it (sends commands, reads output autonomously). User can type at any time — including sudo passwords.
 
----
-
-## Open
-
-```bash
-SESSION="shared-$(date +%s)"
-gnome-terminal -- bash -c "tmux new-session -s '$SESSION' -d; tmux attach -t '$SESSION'" &
-disown %1
-echo "Session: $SESSION"
-```
-
-Save `$SESSION` — needed for all subsequent commands. **macOS:** `osascript -e "tell app \"Terminal\" to do script \"tmux new-session -s '$SESSION'\""`. If `gnome-terminal` unavailable, detect first:
-```bash
-which gnome-terminal konsole xfce4-terminal lxterminal alacritty kitty 2>/dev/null | head -1
-```
+**Follow these steps in order. Step 1 is mandatory — you MUST open a visible window before sending any commands.**
 
 ---
 
-## Drive
+## Step 1: Open a visible terminal window (REQUIRED FIRST)
 
-Send commands to the window (user sees them); read output directly (never ask user to report it).
-
+Create the tmux session:
 ```bash
-tmux send-keys -t "$SESSION" 'your command here' Enter
-sleep 1 && tmux capture-pane -t "$SESSION" -p | tail -20  # read output
-tmux send-keys -t "$SESSION" C-c                           # interrupt
+tmux new-session -s shared -d
+```
+
+Then open a terminal window attached to it (the user must be able to see it):
+```bash
+gnome-terminal -- tmux attach -t shared &
+```
+
+**macOS:** `osascript -e "tell app \"Terminal\" to do script \"tmux attach -t shared\"""`
+
+If `gnome-terminal` is unavailable, detect the available terminal emulator first:
+```bash
+which gnome-terminal konsole xfce4-terminal lxterminal alacritty kitty 2>/dev/null
 ```
 
 ---
 
-## Sudo
+## Live output streaming
 
-Send the sudo command to the window; user sees the prompt and types their password. Claude waits, then reads result.
-
+Always pipe pane output to a log file **in the current chat session folder** (not /tmp). This keeps logs scoped to the conversation and avoids cross-session collisions:
 ```bash
-tmux send-keys -t "$SESSION" 'sudo apt install -y some-package' Enter
-sleep 3 && tmux capture-pane -t "$SESSION" -p | tail -20
+# Use the chat session folder for the log (agents should create this path)
+tmux pipe-pane -t shared -o 'cat >> /home/aikenyon/.claude/sessions/<SESSION_ID>/tmux_shared.log'
+```
+
+If the session folder is unknown or unavailable, fall back to `/tmp/tmux_shared.log`.
+
+**Default: read log on demand** (low token use). Start with a small tail, expand only if needed:
+```bash
+tail -3 <LOG_PATH>    # check last few lines first
+tail -50 <LOG_PATH>   # expand if more context needed
+```
+
+**Optional: Monitor tool** (HIGH TOKEN USE — every line becomes a message). Offer to the user but don't enable by default:
+```
+Monitor({ description: "tmux output", command: "tail -f <LOG_PATH>", persistent: true })
 ```
 
 ---
 
-## Check alive
+## Step 2: Send commands
+
+Send commands to the window (user sees them live):
+```bash
+tmux send-keys -t shared 'your command here' Enter
+```
+
+**ALWAYS verify the command started by reading the log file** (tail the log, not capture-pane):
+```bash
+tail -3 <LOG_PATH>
+```
+
+**Only use `tmux capture-pane -t shared -p` as a last resort** — it captures only visible lines and is lossy. Prefer the piped log file for all output reading.
+
+Interrupt a running command:
+```bash
+tmux send-keys -t shared C-c
+```
+
+---
+
+## Step 3: Sudo (when needed)
+
+Send the sudo command to the window. The user sees the password prompt and types it. Wait, then read the result:
+```bash
+tmux send-keys -t shared 'sudo apt install -y some-package' Enter
+```
+
+---
+
+## Check if session is alive
 
 ```bash
-tmux has-session -t "$SESSION" 2>/dev/null && echo "alive" || echo "gone"
+tmux has-session -t shared 2>/dev/null
 ```
 
 ---
