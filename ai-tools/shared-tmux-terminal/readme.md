@@ -1,14 +1,14 @@
 # Shared Tmux Terminal
 
-**Type:** skill | **Version:** 1.0.0 | **OS:** linux, macos
+**Type:** skill | **Version:** 1.1.0 | **OS:** linux, macos
 
 Open a shared tmux terminal window that both Claude and the user can see and control simultaneously. Claude sends commands and reads output autonomously.
 
 ## Tags
-terminal, tmux, shared-terminal, sudo, collaboration
+terminal, tmux, shared-terminal, sudo, collaboration, logging
 
 ## Overview
-Shared Tmux Terminal creates a visible tmux session that acts as a collaborative workspace between Claude and the user. Claude can autonomously send commands and read output from the terminal, while the user retains full control to type directly at any time -- including entering sudo passwords or taking over operations. This skill supports session discovery, multi-pane operations, buffer reading, error handling, and persistent session management across platforms.
+Shared Tmux Terminal creates a visible tmux session that acts as a collaborative workspace between Claude and the user. Claude can autonomously send commands and read output from the terminal, while the user retains full control to type directly at any time -- including entering sudo passwords or taking over operations. The skill uses a mandatory ordered workflow (open visible window first, then send commands), and streams pane output to a per-chat log file (via `tmux pipe-pane`) so Claude can read output cheaply with `tail` instead of lossy `capture-pane`. It supports session discovery, multi-pane operations, buffer reading, error handling, and persistent session management across platforms.
 
 ## Try These Prompts
 - Open a shared terminal so I can watch what you're doing
